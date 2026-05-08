@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>American Dream | The Global Destination</title>
+    <meta name="description" content="Explore the world's most ambitious retail and entertainment destination. A cinematic interactive sales experience for American Dream NJ.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body class="dark-theme">
+    <div id="app">
+        <!-- Navigation -->
+        <nav class="side-nav">
+            <div class="nav-dots">
+                <a href="#hero" class="nav-dot active" data-title="Intro"></a>
+                <a href="#why" class="nav-dot" data-title="Why American Dream"></a>
+                <a href="#retail" class="nav-dot" data-title="Luxury Retail"></a>
+                <a href="#entertainment" class="nav-dot" data-title="Entertainment"></a>
+                <a href="#dining" class="nav-dot" data-title="Dining"></a>
+                <a href="#events" class="nav-dot" data-title="Events & Platform"></a>
+            </div>
+            <div class="nav-label">Intro</div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content-container">
+            <!-- Hero Section -->
+            <section id="hero" class="full-page hero-section">
+                <div class="background-media">
+                    <img src="./assets/hero.png" alt="American Dream Exterior" class="hero-img" fetchpriority="high">
+                    <div class="overlay"></div>
+                </div>
+                <div class="hero-content">
+                    <h1 class="glitch-text" data-text="BEYOND IMAGINATION">BEYOND IMAGINATION</h1>
+                    <p class="subtitle">The World's Greatest Retail & Entertainment Stage.</p>
+                    <div class="cta-group">
+                        <button class="btn btn-primary" id="btn-explore">Explore the Vision</button>
+                    </div>
+                </div>
+                <div class="scroll-indicator">
+                    <div class="mouse"></div>
+                    <span>Scroll to Discover</span>
+                </div>
+            </section>
+
+            <!-- Why This Property -->
+            <section id="why" class="full-page stats-section">
+                <div class="content-wrapper">
+                    <h2 class="section-title">THE SCALE OF OPPORTUNITY</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-value" data-target="3000000">0</span>
+                            <span class="stat-unit">SQ. FT.</span>
+                            <p class="stat-desc">Immersive Retail & Entertainment</p>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value" data-target="40">0</span>
+                            <span class="stat-unit">MILLION+</span>
+                            <p class="stat-desc">Annual Visitor Potential</p>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value" data-target="20">0</span>
+                            <span class="stat-unit">MINUTES</span>
+                            <p class="stat-desc">From Manhattan, NYC</p>
+                        </div>
+                    </div>
+
+                    <!-- New: Demographic Cards & Map -->
+                    <div class="extra-data">
+                        <div class="map-container">
+                            <img src="./assets/map.png" alt="Catchment Map" class="catchment-map" loading="lazy">
+                            <div class="map-overlay">
+                                <div class="pulse-point"></div>
+                                <span>20M+ Residents within 50 miles</span>
+                            </div>
+                        </div>
+                        <div class="demo-cards">
+                            <div class="demo-card">
+                                <h3>$125K+</h3>
+                                <p>Avg. Household Income in Primary Catchment</p>
+                            </div>
+                            <div class="demo-card">
+                                <h3>65%</h3>
+                                <p>High-Earning Professionals</p>
+                            </div>
+                            <div class="demo-card">
+                                <h3>18-44</h3>
+                                <p>Core Affluent Demographic Age Range</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Luxury Retail -->
+            <section id="retail" class="full-page split-section">
+                <div class="image-side">
+                    <img src="./assets/luxury.png" alt="Luxury Retail" loading="lazy">
+                </div>
+                <div class="text-side">
+                    <h2 class="section-title">CURATED LUXURY</h2>
+                    <p class="section-body">A global runway for the world's most prestigious brands. From flagship boutiques to exclusive pop-ups, American Dream is the ultimate retail stage.</p>
+                    
+                    <!-- New: Logo Grid -->
+                    <div class="logo-grid">
+                        <div class="logo-item">HERMÈS</div>
+                        <div class="logo-item">GUCCI</div>
+                        <div class="logo-item">SAINT LAURENT</div>
+                        <div class="logo-item">BALENCIAGA</div>
+                        <div class="logo-item">ROLEX</div>
+                        <div class="logo-item">TIFFANY & CO.</div>
+                    </div>
+
+                    <button class="btn btn-outline">Leasing Inquiries</button>
+                </div>
+            </section>
+
+            <!-- Entertainment -->
+            <section id="entertainment" class="full-page interactive-section">
+                <div class="background-media">
+                    <img src="./assets/entertainment.png" alt="Entertainment Hub" loading="lazy">
+                    <div class="overlay dark"></div>
+                </div>
+                <div class="content-wrapper central">
+                    <h2 class="section-title">UNRIVALED ATTRACTIONS</h2>
+                    <p class="section-body">Home to North America’s largest indoor water park, theme park, and only indoor ski resort.</p>
+                    <div class="attraction-tags">
+                        <span>Nickelodeon Universe</span>
+                        <span>DreamWorks Water Park</span>
+                        <span>Big SNOW</span>
+                        <span>The Rink</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dining -->
+            <section id="dining" class="full-page split-section reverse">
+                <div class="image-side">
+                    <img src="./assets/dining.png" alt="Dining & Lifestyle" loading="lazy">
+                </div>
+                <div class="text-side">
+                    <h2 class="section-title">GLOBAL FLAVORS</h2>
+                    <p class="section-body">More than a meal—a culinary journey. Featuring celebrity chefs and world-renowned concepts that drive dwell time and repeat visits.</p>
+                    <button class="btn btn-outline">Partner With Us</button>
+                </div>
+            </section>
+
+            <!-- Events & Platform -->
+            <section id="events" class="full-page call-to-action">
+                <div class="content-wrapper text-center">
+                    <h2 class="section-title">YOUR GLOBAL PLATFORM</h2>
+                    <p class="section-body large">American Dream is more than a building. It's a stage for world-class events, brand activations, and cultural moments.</p>
+                    
+                    <!-- New: Capacity Stats -->
+                    <div class="capacity-stats">
+                        <div class="cap-item">
+                            <span class="cap-value">5,000+</span>
+                            <span class="cap-label">Concert Capacity</span>
+                        </div>
+                        <div class="cap-item">
+                            <span class="cap-value">300,000</span>
+                            <span class="cap-label">Sq. Ft. Event Space</span>
+                        </div>
+                        <div class="cap-item">
+                            <span class="cap-value">Unlimited</span>
+                            <span class="cap-label">Activation Potential</span>
+                        </div>
+                    </div>
+
+                    <div class="final-ctas">
+                        <button class="btn btn-primary lg">Book a Venue</button>
+                        <button class="btn btn-secondary lg">Sponsorship Deck</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="minimal-footer">
+            <p>&copy; 2026 American Dream. All Rights Reserved. <span class="brand-accent">Beyond The Ordinary.</span></p>
+        </footer>
+
+        <!-- Phase 2: Expandable Events Module Overlay -->
+        <div id="events-module" class="module-overlay">
+            <div class="module-panel">
+                <button class="close-module">&times;</button>
+                <div class="module-header">
+                    <span class="eyebrow">Expand Your Reach</span>
+                    <h2>EVENTS & ACTIVATIONS</h2>
+                </div>
+                
+                <div class="module-grid">
+                    <div class="module-main">
+                        <section class="module-inner-section">
+                            <h3>Venue Highlights</h3>
+                            <div class="highlight-gallery">
+                                <div class="highlight-item">
+                                    <img src="./assets/event_concert.png" alt="Concert Highlight" loading="lazy">
+                                    <div class="highlight-info">
+                                        <h4>Main Stage</h4>
+                                        <p>Global artists and massive crowds.</p>
+                                    </div>
+                                </div>
+                                <div class="highlight-item">
+                                    <img src="./assets/event_activation.png" alt="Brand Activation" loading="lazy">
+                                    <div class="highlight-info">
+                                        <h4>Pop-up Pavilions</h4>
+                                        <p>Bespoke experiential marketing.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="module-inner-section">
+                            <h3>Technical Specifications</h3>
+                            <div class="specs-grid">
+                                <div class="spec-tile">
+                                    <span class="spec-label">Ceiling Height</span>
+                                    <span class="spec-value">60' - 100'</span>
+                                </div>
+                                <div class="spec-tile">
+                                    <span class="spec-label">Load-in</span>
+                                    <span class="spec-value">Dedicated Docks</span>
+                                </div>
+                                <div class="spec-tile">
+                                    <span class="spec-label">Power</span>
+                                    <span class="spec-value">4000 Amps</span>
+                                </div>
+                                <div class="spec-tile">
+                                    <span class="spec-label">Connectivity</span>
+                                    <span class="spec-value">10Gb Fiber</span>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <aside class="module-sidebar">
+                        <div class="booking-card">
+                            <h3>Secure Your Date</h3>
+                            <p>Speak with our experience team to bring your vision to life.</p>
+                            <form class="lead-form">
+                                <input type="text" placeholder="Full Name" required>
+                                <input type="email" placeholder="Corporate Email" required>
+                                <select>
+                                    <option>Event Type</option>
+                                    <option>Concert / Performance</option>
+                                    <option>Brand Activation</option>
+                                    <option>Corporate Event</option>
+                                    <option>Product Launch</option>
+                                </select>
+                                <textarea placeholder="Tell us about your event..."></textarea>
+                                <button type="submit" class="btn btn-primary full-width">Submit Inquiry</button>
+                            </form>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="./main.js"></script>
+</body>
+</html>
