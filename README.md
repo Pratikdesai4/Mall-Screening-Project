@@ -3,7 +3,7 @@
 A fully interactive, browser-based sales deck designed for the American Dream mall in New Jersey. This tool replaces traditional static PDFs and fragmented video presentations with a single, seamless, high-end "Digideck" experience aimed at prospective retail tenants, corporate sponsors, and event promoters.
 
 ## 🚀 Live Demo
-*(Insert Live URL Here after deployment via Vercel/Netlify)*
+[https://mall-screening-project.vercel.app](https://mall-screening-project.vercel.app)
 
 ## 🛠️ Tech Stack
 - **Core**: HTML5, Vanilla JavaScript (ES6+).
