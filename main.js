@@ -83,20 +83,20 @@ function initNavigation() {
     const navLabel = document.querySelector('.nav-label');
 
     dots.forEach(dot => {
-        dot.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = dot.getAttribute('href');
-            document.querySelector(targetId).scrollIntoView({
-                behavior: 'smooth'
-            });
+        dot.addEventListener('click', () => {
+            // Native anchor scrolling will handle it thanks to CSS scroll-behavior
         });
     });
 
     // Smooth scroll for "Explore" button
     const exploreBtn = document.getElementById('btn-explore');
     if (exploreBtn) {
-        exploreBtn.addEventListener('click', () => {
-            document.getElementById('why').scrollIntoView({ behavior: 'smooth' });
+        exploreBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = document.getElementById('why');
+            if(target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
         });
     }
 }
