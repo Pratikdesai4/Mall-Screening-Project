@@ -7,6 +7,7 @@
     <meta name="description" content="Explore the world's most ambitious retail and entertainment destination. A cinematic interactive sales experience for American Dream NJ.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://www.youtube.com">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
 </head>
@@ -15,12 +16,12 @@
         <!-- Navigation -->
         <nav class="side-nav">
             <div class="nav-dots">
-                <a href="#hero" class="nav-dot active" data-title="Intro"></a>
-                <a href="#why" class="nav-dot" data-title="Why American Dream"></a>
-                <a href="#retail" class="nav-dot" data-title="Luxury Retail"></a>
-                <a href="#entertainment" class="nav-dot" data-title="Entertainment"></a>
-                <a href="#dining" class="nav-dot" data-title="Dining"></a>
-                <a href="#events" class="nav-dot" data-title="Events & Platform"></a>
+                <a href="#hero" class="nav-dot active" aria-label="Intro" data-title="Intro"></a>
+                <a href="#why" class="nav-dot" aria-label="Why American Dream" data-title="Why American Dream"></a>
+                <a href="#retail" class="nav-dot" aria-label="Luxury Retail" data-title="Luxury Retail"></a>
+                <a href="#entertainment" class="nav-dot" aria-label="Entertainment" data-title="Entertainment"></a>
+                <a href="#dining" class="nav-dot" aria-label="Dining" data-title="Dining"></a>
+                <a href="#events" class="nav-dot" aria-label="Events & Platform" data-title="Events & Platform"></a>
             </div>
             <div class="nav-label">Intro</div>
         </nav>
@@ -30,7 +31,7 @@
             <!-- Hero Section -->
             <section id="hero" class="full-page hero-section">
                 <div class="background-media">
-                    <iframe src="https://www.youtube.com/embed/nlB8mRFGxjw?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&autohide=1&playlist=nlB8mRFGxjw&playsinline=1" frameborder="0" allow="autoplay; encrypted-media" class="bg-video" allowfullscreen></iframe>
+                    <iframe title="American Dream Hero Video" src="https://www.youtube.com/embed/nlB8mRFGxjw?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&autohide=1&playlist=nlB8mRFGxjw&playsinline=1" frameborder="0" allow="autoplay; encrypted-media" class="bg-video" allowfullscreen></iframe>
                     <div class="overlay"></div>
                 </div>
                 <div class="hero-content">
@@ -121,7 +122,7 @@
             <!-- Entertainment -->
             <section id="entertainment" class="full-page interactive-section">
                 <div class="background-media">
-                    <iframe src="https://www.youtube.com/embed/G6fMtsWiZnQ?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&autohide=1&playlist=G6fMtsWiZnQ&playsinline=1" frameborder="0" allow="autoplay; encrypted-media" class="bg-video" allowfullscreen></iframe>
+                    <iframe title="American Dream Entertainment Video" loading="lazy" src="https://www.youtube.com/embed/G6fMtsWiZnQ?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&autohide=1&playlist=G6fMtsWiZnQ&playsinline=1" frameborder="0" allow="autoplay; encrypted-media" class="bg-video" allowfullscreen></iframe>
                     <div class="overlay dark"></div>
                 </div>
                 <div class="content-wrapper central">
@@ -185,7 +186,7 @@
         <!-- Phase 2: Expandable Events Module Overlay -->
         <div id="events-module" class="module-overlay">
             <div class="module-panel">
-                <button class="close-module">&times;</button>
+                <button class="close-module" aria-label="Close Module">&times;</button>
                 <div class="module-header">
                     <span class="eyebrow">Expand Your Reach</span>
                     <h2>EVENTS & ACTIVATIONS</h2>
@@ -241,16 +242,16 @@
                             <h3>Secure Your Date</h3>
                             <p>Speak with our experience team to bring your vision to life.</p>
                             <form class="lead-form">
-                                <input type="text" placeholder="Full Name" required>
-                                <input type="email" placeholder="Corporate Email" required>
-                                <select>
+                                <input type="text" placeholder="Full Name" aria-label="Full Name" required>
+                                <input type="email" placeholder="Corporate Email" aria-label="Corporate Email" required>
+                                <select aria-label="Event Type">
                                     <option>Event Type</option>
                                     <option>Concert / Performance</option>
                                     <option>Brand Activation</option>
                                     <option>Corporate Event</option>
                                     <option>Product Launch</option>
                                 </select>
-                                <textarea placeholder="Tell us about your event..."></textarea>
+                                <textarea placeholder="Tell us about your event..." aria-label="Event Details"></textarea>
                                 <button type="submit" class="btn btn-primary full-width">Submit Inquiry</button>
                             </form>
                         </div>
