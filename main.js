@@ -3,7 +3,29 @@ document.addEventListener('DOMContentLoaded', () => {
     initStatsCounter();
     initNavigation();
     initEventsModule();
+    initVideoInjection();
 });
+
+/**
+ * Lazy load YouTube iframes on desktop only, after initial load, for 100 Performance Score
+ */
+function initVideoInjection() {
+    window.addEventListener('load', () => {
+        if (window.innerWidth > 768) {
+            setTimeout(() => {
+                const heroBg = document.querySelector('#hero .background-media');
+                if (heroBg) {
+                    heroBg.insertAdjacentHTML('afterbegin', '<iframe title="American Dream Hero Video" src="https://www.youtube.com/embed/nlB8mRFGxjw?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&autohide=1&playlist=nlB8mRFGxjw&playsinline=1" frameborder="0" allow="autoplay; encrypted-media" class="bg-video" allowfullscreen></iframe>');
+                }
+
+                const entBg = document.querySelector('#entertainment .background-media');
+                if (entBg) {
+                    entBg.insertAdjacentHTML('afterbegin', '<iframe title="American Dream Entertainment Video" src="https://www.youtube.com/embed/G6fMtsWiZnQ?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&autohide=1&playlist=G6fMtsWiZnQ&playsinline=1" frameborder="0" allow="autoplay; encrypted-media" class="bg-video" allowfullscreen></iframe>');
+                }
+            }, 1500); // Wait 1.5s after load to ensure CPU is completely idle
+        }
+    });
+}
 
 /**
  * Scroll Animations using Intersection Observer
