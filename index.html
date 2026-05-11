@@ -8,11 +8,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://www.youtube.com">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
 </head>
 <body class="dark-theme">
     <div id="app">
+        <!-- Top Header -->
+        <header class="top-header">
+            <div class="brand-logo">AMERICAN DREAM</div>
+            <button class="btn btn-outline btn-sm cta-top" onclick="document.getElementById('events-module').classList.add('active'); document.body.style.overflow='hidden';">INQUIRE NOW</button>
+        </header>
+
         <!-- Navigation -->
         <nav class="side-nav">
             <div class="nav-dots">
@@ -35,7 +41,7 @@
                     <div class="overlay"></div>
                 </div>
                 <div class="hero-content">
-                    <h1 class="glitch-text" data-text="BEYOND IMAGINATION">BEYOND IMAGINATION</h1>
+                    <h1 class="reveal-text">BEYOND IMAGINATION</h1>
                     <p class="subtitle">The World's Greatest Retail & Entertainment Stage.</p>
                     <div class="cta-group">
                         <button class="btn btn-primary" id="btn-explore">Explore the Vision</button>

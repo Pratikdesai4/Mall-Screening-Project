@@ -36,12 +36,6 @@ Generative AI was not just a supplement in this project; it was the primary driv
 
 While the current tool achieves the goal of a high-impact, non-linear sales deck, there are several areas where it could be expanded in a real-world production environment:
 
-1. **True Video Integration (Background & Inline)**
-   Currently, the hero section utilizes a Ken Burns CSS animation on a static image to simulate cinematic motion. In a V2, we would host optimized, muted, auto-playing `.mp4` or `.webm` drone footage of the DreamWorks Water Park and the exterior facade to truly hit the "video-first" requirement.
-
-2. **Interactive 3D Mapping**
-   Instead of a static catchment map, integrating a WebGL-based 3D globe (e.g., using Three.js or Mapbox) that spins to New Jersey and visually pulses the 50-mile radius would elevate the data visualization.
-
 3. **Expanded Leasing Paths Sub-Module**
    Following the architecture of the Events Module, we would build a dedicated "Leasing Path" module. A salesperson could click "Retail" vs "Dining" vs "Pop-up", and the deck would dynamically swap the data cards and tenant logos to match that specific buyer persona on the fly, without ever leaving the page.
 
