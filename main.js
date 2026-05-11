@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollAnimations();
     initStatsCounter();
     initNavigation();
-    initEventsModule();
+    initModules();
+    initVideoFallback();
 });
 
 /**
@@ -10,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 function initScrollAnimations() {
     const observerOptions = {
-        threshold: 0.2
+        threshold: 0.1
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -38,25 +39,18 @@ function initScrollAnimations() {
                     }, index * 100);
                 }
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.05 });
 
         animatables.forEach(el => innerObserver.observe(el));
     });
 
     // Scroll-Triggered Video Observer
-    const videoObserver = new IntersectionObserver((entries, observer) => {
+    const videoObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const iframe = entry.target;
-                if (!iframe.getAttribute('src')) {
+                if (!iframe.getAttribute('src') && iframe.getAttribute('data-src')) {
                     iframe.setAttribute('src', iframe.getAttribute('data-src'));
-                }
-            } else {
-                const iframe = entry.target;
-                if (iframe.getAttribute('src')) {
-                    // Optional: remove src to pause, but better to let it play once loaded or just pause it.
-                    // Since it's a youtube iframe, setting src to '' unloads it, which causes a flash on reload.
-                    // For now, loading it strictly on scroll satisfies the requirement.
                 }
             }
         });
@@ -75,7 +69,7 @@ function initStatsCounter() {
 
     const countUp = (el) => {
         const target = parseInt(el.getAttribute('data-target'));
-        const duration = 2000; // 2 seconds
+        const duration = 2500; // slightly slower for premium feel
         const frameRate = 16;
         const totalFrames = duration / frameRate;
         const increment = target / totalFrames;
@@ -96,14 +90,17 @@ function initStatsCounter() {
     const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                countUp(entry.target);
-                obs.unobserve(entry.target); // Stop observing once triggered
+                // Delay slightly to ensure visibility
+                setTimeout(() => {
+                    countUp(entry.target);
+                }, 200);
+                obs.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.1 }); // Lowered threshold for better triggering
+    }, { threshold: 0.2 });
 
     statValues.forEach(val => {
-        val.innerText = '0'; // Ensure it starts at 0
+        val.innerText = '0';
         observer.observe(val);
     });
 }
@@ -113,8 +110,6 @@ function initStatsCounter() {
  */
 function initNavigation() {
     const dots = document.querySelectorAll('.nav-dot');
-    const navLabel = document.querySelector('.nav-label');
-
     const transitionOverlay = document.getElementById('section-transition');
 
     dots.forEach(dot => {
@@ -124,30 +119,27 @@ function initNavigation() {
             const targetSection = document.querySelector(targetId);
 
             if (targetSection) {
-                // Show transition overlay
                 transitionOverlay.classList.add('active');
 
                 setTimeout(() => {
-                    targetSection.scrollIntoView({ behavior: 'auto' });
+                    targetSection.scrollIntoView({ behavior: 'auto', block: 'start' });
+                    
+                    // Force update nav just in case observer misses it during jump
+                    updateNav(targetId.substring(1));
 
-                    // Hide transition overlay after jump
                     setTimeout(() => {
                         transitionOverlay.classList.remove('active');
-                    }, 100);
-                }, 400); // match CSS transition duration
+                    }, 300);
+                }, 500);
             }
         });
     });
 
-    // Smooth scroll for "Explore" button
     const exploreBtn = document.getElementById('btn-explore');
     if (exploreBtn) {
         exploreBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            const target = document.getElementById('why');
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
+            document.querySelector('#why').scrollIntoView({ behavior: 'smooth' });
         });
     }
 }
@@ -166,69 +158,89 @@ function updateNav(sectionId) {
 }
 
 /**
- * Phase 2: Events & Sponsorship Module Logic
+ * Phase 2: Modules Logic (Events, Sponsorship, Leasing)
  */
-function initEventsModule() {
-    const bookBtns = document.querySelectorAll('.btn-primary, .btn-secondary');
+function initModules() {
     const eventsOverlay = document.getElementById('events-module');
     const sponsorshipOverlay = document.getElementById('sponsorship-module');
+    const leasingOverlay = document.getElementById('leasing-module');
 
-    bookBtns.forEach(btn => {
-        const text = btn.innerText.toLowerCase();
-        if (text.includes('book') || text.includes('partner') || text.includes('events')) {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                eventsOverlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-        } else if (text.includes('sponsorship')) {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                sponsorshipOverlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-        }
-    });
+    const openModule = (overlay) => {
+        if (!overlay) return;
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    };
 
     const closeModule = (overlay) => {
+        if (!overlay) return;
         overlay.classList.remove('active');
         document.body.style.overflow = '';
     };
 
+    // Generic triggers
+    document.querySelectorAll('.btn-events-trigger').forEach(btn => {
+        btn.addEventListener('click', () => openModule(eventsOverlay));
+    });
+
+    document.querySelectorAll('.btn-leasing-trigger').forEach(btn => {
+        btn.addEventListener('click', () => openModule(leasingOverlay));
+    });
+
+    // Special handling for old classes if any
+    document.querySelectorAll('.btn-secondary').forEach(btn => {
+        if (btn.innerText.toLowerCase().includes('sponsorship')) {
+            btn.addEventListener('click', () => openModule(sponsorshipOverlay));
+        }
+    });
+
     document.querySelectorAll('.close-module').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            closeModule(e.target.closest('.module-overlay'));
-        });
+        btn.addEventListener('click', (e) => closeModule(e.target.closest('.module-overlay')));
     });
 
     document.querySelectorAll('.module-overlay').forEach(overlay => {
         overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) {
-                closeModule(overlay);
-            }
+            if (e.target === overlay) closeModule(overlay);
         });
     });
 
-    // Form Submission Handling (with visual feedback)
+    // Form Submissions
     document.querySelectorAll('.lead-form').forEach(form => {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalText = submitBtn.innerText;
 
-            submitBtn.innerText = 'Request Received ✓';
-            submitBtn.style.backgroundColor = '#10B981'; // Success green
-            submitBtn.style.borderColor = '#10B981';
-            submitBtn.style.color = 'white';
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'Sending...';
 
             setTimeout(() => {
-                submitBtn.innerText = originalText;
-                submitBtn.style.backgroundColor = '';
-                submitBtn.style.borderColor = '';
-                submitBtn.style.color = '';
-                form.reset();
-                closeModule(form.closest('.module-overlay'));
-            }, 3000);
+                submitBtn.innerText = 'Request Received ✓';
+                submitBtn.style.backgroundColor = '#10B981';
+                submitBtn.style.borderColor = '#10B981';
+                submitBtn.style.color = 'white';
+
+                setTimeout(() => {
+                    submitBtn.innerText = originalText;
+                    submitBtn.style.backgroundColor = '';
+                    submitBtn.style.borderColor = '';
+                    submitBtn.style.color = '';
+                    submitBtn.disabled = false;
+                    form.reset();
+                    closeModule(form.closest('.module-overlay'));
+                }, 2000);
+            }, 1000);
         });
+    });
+}
+
+/**
+ * Handle YouTube Blocking
+ */
+function initVideoFallback() {
+    // If user has network issues with YouTube, we ensure fallbacks are visible
+    // CSS already handles the layering, but we can add logic to hide iframes that fail
+    window.addEventListener('message', (event) => {
+        // YouTube postMessage API can be used to detect errors, but usually 
+        // a simple timeout or network check is more reliable for "blocked" status.
     });
 }

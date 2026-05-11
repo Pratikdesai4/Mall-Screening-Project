@@ -125,9 +125,10 @@
                         <span>Primark</span>
                         <span>H&M</span>
                         <span>Sephora</span>
+                        <span>Apple</span>
                     </div>
                     <br><br>
-                    <button class="btn btn-outline">Retail Leasing</button>
+                    <button class="btn btn-outline btn-leasing-trigger">Retail Leasing</button>
                 </div>
             </section>
 
@@ -150,7 +151,7 @@
                         <div class="logo-item">TIFFANY & CO.</div>
                     </div>
 
-                    <button class="btn btn-outline">Leasing Inquiries</button>
+                    <button class="btn btn-outline btn-leasing-trigger">Leasing Inquiries</button>
                 </div>
             </section>
 
@@ -180,8 +181,22 @@
                 </div>
                 <div class="text-side">
                     <h2 class="section-title">GLOBAL FLAVORS</h2>
-                    <p class="section-body">Over 100 dining destinations ranging from casual bites to fine dining. Featuring concepts by celebrity chefs (e.g., Marcus Samuelsson) that drive evening traffic and dramatically extend visitor dwell time (+4 hours avg).</p>
+                    <p class="section-body">Over 100 dining destinations ranging from casual bites to fine dining. Featuring concepts by celebrity chefs that drive evening traffic and dramatically extend visitor dwell time (+4 hours avg).</p>
                     
+                    <div class="dining-categories">
+                        <div class="cat-tag">Fine Dining</div>
+                        <div class="cat-tag">Quick Service</div>
+                        <div class="cat-tag">Artisan Bakeries</div>
+                        <div class="cat-tag">Themed Cafes</div>
+                    </div>
+
+                    <div class="tenant-list-mini">
+                        <span>Marcus Samuelsson</span>
+                        <span>Carpaccio</span>
+                        <span>Yard House</span>
+                        <span>Wetzel's Pretzels</span>
+                    </div>
+
                     <div class="stats-grid" style="margin-top: 2rem; margin-bottom: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                         <div class="stat-card" style="padding: 1rem;">
                             <h3 style="color: var(--accent-gold);">100+</h3>
@@ -193,7 +208,7 @@
                         </div>
                     </div>
 
-                    <button class="btn btn-outline">Partner With Us</button>
+                    <button class="btn btn-outline btn-leasing-trigger">Partner With Us</button>
                 </div>
             </section>
 
@@ -205,14 +220,25 @@
                 </div>
                 <div class="text-side">
                     <h2 class="section-title">EXPOSITION CENTER</h2>
-                    <p class="section-body">Unmatched visibility into performing arts potential and convention center opportunities. Our exposition spaces host e-sports tournaments, global trade shows, and international conferences, drawing millions of dedicated attendees.</p>
+                    <p class="section-body">Unmatched visibility into performing arts potential and convention center opportunities. Our 300,000 sq. ft. exposition spaces host e-sports tournaments, global trade shows, and international conferences.</p>
+                    <div class="specs-mini">
+                        <div class="spec-mini-item">
+                            <strong>Capacity</strong>
+                            <span>5,000+ Guests</span>
+                        </div>
+                        <div class="spec-mini-item">
+                            <strong>Height</strong>
+                            <span>60' Clear</span>
+                        </div>
+                    </div>
                     <div class="attraction-tags" style="margin-top:2rem;">
                         <span>Trade Shows</span>
                         <span>E-Sports</span>
                         <span>Galas</span>
+                        <span>Performing Arts</span>
                     </div>
                     <br><br>
-                    <button class="btn btn-outline">Book a Hall</button>
+                    <button class="btn btn-outline btn-events-trigger">Book a Hall</button>
                 </div>
             </section>
 
@@ -396,6 +422,63 @@
                                 </select>
                                 <textarea placeholder="Tell us about your brand goals..." aria-label="Brand Goals"></textarea>
                                 <button type="submit" class="btn btn-primary full-width">Download Kit</button>
+                            </form>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+        <!-- Phase 2: Expandable Leasing Module Overlay -->
+        <div id="leasing-module" class="module-overlay">
+            <div class="module-panel">
+                <button class="close-module" aria-label="Close Module">&times;</button>
+                <div class="module-header">
+                    <span class="eyebrow">Strategic Placement</span>
+                    <h2>LEASING OPPORTUNITIES</h2>
+                </div>
+                
+                <div class="module-grid">
+                    <div class="module-main">
+                        <section class="module-inner-section">
+                            <h3>Retail & Lifestyle Zones</h3>
+                            <div class="specs-grid">
+                                <div class="spec-tile">
+                                    <span class="spec-label">Total G.L.A</span>
+                                    <span class="spec-value">3.0M Sq. Ft.</span>
+                                </div>
+                                <div class="spec-tile">
+                                    <span class="spec-label">Unit Sizes</span>
+                                    <span>500 - 50,000 Sq. Ft.</span>
+                                </div>
+                                <div class="spec-tile">
+                                    <span class="spec-label">Frontage</span>
+                                    <span>Premium Glass</span>
+                                </div>
+                                <div class="spec-tile">
+                                    <span class="spec-label">Footfall</span>
+                                    <span>40M+ Projected</span>
+                                </div>
+                            </div>
+                            <p class="section-body" style="margin-top: 2rem;">Join the world's most innovative retail ecosystem. From high-street flagships to digital-native pop-ups, American Dream offers the ultimate platform for brand growth and customer engagement.</p>
+                        </section>
+                    </div>
+
+                    <aside class="module-sidebar">
+                        <div class="booking-card">
+                            <h3>Connect with Leasing</h3>
+                            <p>Our advisors will help you find the perfect footprint.</p>
+                            <form class="lead-form leasing-form">
+                                <input type="text" placeholder="Full Name" aria-label="Full Name" required>
+                                <input type="email" placeholder="Corporate Email" aria-label="Corporate Email" required>
+                                <select aria-label="Sector">
+                                    <option>Sector</option>
+                                    <option>Retail</option>
+                                    <option>Dining / F&B</option>
+                                    <option>Entertainment</option>
+                                    <option>Luxury / The Avenue</option>
+                                </select>
+                                <textarea placeholder="Describe your brand concept..." aria-label="Brand Concept"></textarea>
+                                <button type="submit" class="btn btn-primary full-width">Request Brochure</button>
                             </form>
                         </div>
                     </aside>
