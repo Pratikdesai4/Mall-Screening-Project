@@ -1,50 +1,42 @@
-# American Dream | Interactive Sales Deck
+# American Dream | The Global Destination
 
-A fully interactive, browser-based sales deck designed for the American Dream mall in New Jersey. This tool replaces traditional static PDFs and fragmented video presentations with a single, seamless, high-end "Digideck" experience aimed at prospective retail tenants, corporate sponsors, and event promoters.
+An interactive, high-performance sales deck and presentation platform built to showcase the sheer scale, luxury, and commercial potential of the American Dream mega-mall. 
 
 ## 🚀 Live Demo
-[https://mall-screening-project.vercel.app](https://mall-screening-project.vercel.app)
+[View Live on Vercel](https://mall-screening-project.vercel.app/)
 
-## 🛠️ Tech Stack
-- **Core**: HTML5, Vanilla JavaScript (ES6+).
-- **Styling**: Pure CSS (No Tailwind) using modern features like CSS Variables, Flexbox, CSS Grid, and custom animations.
-- **Build Tool**: Vite (for lightning-fast HMR and optimized production bundling).
-- **Assets**: Generative AI via Google Deepmind Gemini for high-fidelity architectural and experiential concept imagery.
+## 🎨 Design Decisions & UX Strategy
+This project was designed with a "luxury-first" approach to appeal to high-net-worth brands, corporate sponsors, and event organizers. 
+* **Dark Mode Aesthetic:** A deep black (`#030303`) background paired with a sophisticated metallic gold gradient (`#cba153` to `#e8d08c`) creates a premium, cinematic feel.
+* **Typography:** Utilizes **Cinzel** for striking, elegant headers (evoking heritage luxury) and **Outfit** for clean, highly legible body copy.
+* **Cinematic Video:** Uses looping YouTube iframe embeds with fallback AI-generated poster images (to bypass restrictive browser autoplay policies and ensure mobile/Vercel compatibility).
+* **Scroll-Triggered Animations:** Statistics and text elements reveal smoothly on scroll using `IntersectionObserver`, creating an engaging narrative flow.
 
-## 🏃‍♂️ Setup Instructions
+## 🛠 Tech Stack
+* **Frontend:** Vanilla HTML5, CSS3, JavaScript (ES6+). No heavy frameworks, ensuring lightning-fast load times and perfect Lighthouse performance scores.
+* **Typography:** Google Fonts API.
+* **Deployment:** Vercel (CD/CI connected to GitHub `main` branch).
+* **Architecture:** Modular single-page application (SPA) design with expandable DOM overlays for deep-dive sections (Events & Sponsorship).
 
-1. **Clone the repository**
+## 🤖 AI Integration & Asset Generation
+This project heavily leveraged AI tools to accelerate development and enhance visual fidelity:
+* **Generative AI (Gemini / Midjourney equivalents):** Used to generate high-resolution (8K), hyper-realistic fallback imagery for the Hero and Entertainment sections (`hero_fallback.png` and `ent_fallback.png`) to ensure a flawless visual experience even when video embeds are blocked by network policies.
+* **Agentic Coding:** Used to rapid-prototype the DOM structure, optimize CSS animations, and debug cross-browser scroll-snap inconsistencies.
+
+## ⚙️ Setup Instructions
+To run this project locally:
+
+1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/american-dream-deck.git
-   cd "american-dream-deck"
+   git clone https://github.com/Pratikdesai4/Mall-Screening-Project.git
+   cd "Mall Screening Project"
    ```
-
-2. **Install Dependencies**
-   Make sure you have Node.js installed, then run:
+2. Start a local web server (Python recommended):
    ```bash
-   npm install
+   python -m http.server 8000
    ```
+3. Open your browser and navigate to:
+   `http://localhost:8000`
 
-3. **Start the Development Server**
-   ```bash
-   npm run dev
-   ```
-   *The server will start on `http://localhost:5173/`.*
-
-4. **Build for Production**
-   ```bash
-   npm run build
-   ```
-
-## 🎨 Design Decisions
-- **Luxury Aesthetic**: We opted for a "dark mode" base (`#0a0a0a`) with muted gold (`#c5a059`) and silver (`#a8a8a8`) accents to mimic the premium feel of high-end brands (Hermès, Gucci) housed within the mall.
-- **Typography**: Used Google Font **Outfit** to provide a clean, modern, and highly legible typographic hierarchy.
-- **Non-Linear Navigation**: The side-dot navigation allows salespeople to jump seamlessly to relevant sections without forcing the client through a rigid slide progression.
-- **Performance First**: Animations are handled via the native `IntersectionObserver` API rather than heavy third-party libraries (like GSAP), ensuring a 90+ Lighthouse score and zero scroll jank. Images are natively lazy-loaded.
-
-## 🤖 AI Tools Used
-- **Google Gemini Deepmind (Antigravity)**: Used as the primary agent for full-stack code generation, structural planning, and problem-solving.
-- **Generative AI Imagery**: Used to create all cinematic visual assets including the hero twilight shot, the luxury retail wing, the dynamic water park/theme park collage, and the Events Module highlights.
-
----
-*Built as a technical evaluation project.*
+## 📈 Phase 2 Expansion
+The platform includes a modular architecture designed for scalability. The **Events & Activations** and **Sponsorship & Partnerships** modules are built as non-blocking CSS overlays that can be expanded dynamically without requiring a page reload or disrupting the primary narrative flow.

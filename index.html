@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>American Dream | The Global Destination</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
     <meta name="description" content="Explore the world's most ambitious retail and entertainment destination. A cinematic interactive sales experience for American Dream NJ.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,20 +25,26 @@
             <div class="nav-dots">
                 <a href="#hero" class="nav-dot active" data-title="Intro"><span class="sr-only">Intro</span></a>
                 <a href="#why" class="nav-dot" data-title="Why American Dream"><span class="sr-only">Why American Dream</span></a>
-                <a href="#retail" class="nav-dot" data-title="Luxury Retail"><span class="sr-only">Luxury Retail</span></a>
+                <a href="#retail" class="nav-dot" data-title="Retail"><span class="sr-only">Retail</span></a>
+                <a href="#luxury" class="nav-dot" data-title="Luxury"><span class="sr-only">Luxury</span></a>
                 <a href="#entertainment" class="nav-dot" data-title="Entertainment"><span class="sr-only">Entertainment</span></a>
                 <a href="#dining" class="nav-dot" data-title="Dining"><span class="sr-only">Dining</span></a>
+                <a href="#expo" class="nav-dot" data-title="Exposition Center"><span class="sr-only">Exposition Center</span></a>
                 <a href="#events" class="nav-dot" data-title="Events & Platform"><span class="sr-only">Events & Platform</span></a>
             </div>
             <div class="nav-label">Intro</div>
         </nav>
+
+        <!-- Section Transition Overlay -->
+        <div id="section-transition" class="section-transition"></div>
 
         <!-- Main Content -->
         <main class="content-container">
             <!-- Hero Section -->
             <section id="hero" class="full-page hero-section">
                 <div class="background-media">
-                    <iframe title="American Dream Hero Video" src="https://www.youtube.com/embed/nlB8mRFGxjw?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&autohide=1&playlist=nlB8mRFGxjw&playsinline=1" frameborder="0" allow="autoplay; encrypted-media" class="bg-video" allowfullscreen></iframe>
+                    <img src="./assets/hero_fallback.png" alt="American Dream Hero Background Fallback" class="video-fallback" loading="eager">
+                    <iframe title="American Dream Hero Video" src="https://www.youtube.com/embed/nlB8mRFGxjw?autoplay=1&mute=1&loop=1&controls=0&disablekb=1&fs=0&modestbranding=1&iv_load_policy=3&rel=0&playlist=nlB8mRFGxjw&playsinline=1" frameborder="0" allow="autoplay; encrypted-media" class="bg-video" allowfullscreen></iframe>
                     <div class="overlay"></div>
                 </div>
                 <div class="hero-content">
@@ -80,8 +87,10 @@
                         <div class="map-container">
                             <img src="./assets/map.png" alt="Catchment Map" class="catchment-map" loading="lazy">
                             <div class="map-overlay">
-                                <div class="pulse-point"></div>
-                                <span>20M+ Residents within 50 miles</span>
+                                <div class="pulse-point" style="top: 50%; left: 50%;" data-tooltip="East Rutherford: Core Hub"></div>
+                                <div class="pulse-point" style="top: 40%; left: 60%;" data-tooltip="Manhattan: 20 Mins"></div>
+                                <div class="pulse-point" style="top: 30%; left: 40%;" data-tooltip="Bergen County: Affluent Base"></div>
+                                <span class="map-caption">20M+ Residents within 50 miles</span>
                             </div>
                         </div>
                         <div class="demo-cards">
@@ -102,14 +111,34 @@
                 </div>
             </section>
 
-            <!-- Luxury Retail -->
+            <!-- Retail -->
             <section id="retail" class="full-page split-section">
+                <div class="image-side relative">
+                    <img src="./assets/retail_fallback.png" alt="High-end Retail" loading="lazy">
+                    <div class="ai-badge">✨ AI Visual</div>
+                </div>
+                <div class="text-side">
+                    <h2 class="section-title">THE RETAIL REVOLUTION</h2>
+                    <p class="section-body">A meticulously curated collection of the world's most sought-after brands. We blend fast-fashion, experiential flagships, and digital-native brands entering brick-and-mortar.</p>
+                    <div class="attraction-tags" style="margin-top:2rem;">
+                        <span>Zara Flagship</span>
+                        <span>Primark</span>
+                        <span>H&M</span>
+                        <span>Sephora</span>
+                    </div>
+                    <br><br>
+                    <button class="btn btn-outline">Retail Leasing</button>
+                </div>
+            </section>
+
+            <!-- Luxury Retail -->
+            <section id="luxury" class="full-page split-section reverse luxury-palette">
                 <div class="image-side">
                     <img src="./assets/luxury.png" alt="Luxury Retail" loading="lazy">
                 </div>
                 <div class="text-side">
                     <h2 class="section-title">CURATED LUXURY</h2>
-                    <p class="section-body">A global runway for the world's most prestigious brands. From flagship boutiques to exclusive pop-ups, American Dream is the ultimate retail stage.</p>
+                    <p class="section-body">The Avenue: a distinct, elevated experience featuring private valet, champagne bars, and a global runway for the world's most prestigious luxury houses.</p>
                     
                     <!-- New: Logo Grid -->
                     <div class="logo-grid">
@@ -128,7 +157,8 @@
             <!-- Entertainment -->
             <section id="entertainment" class="full-page interactive-section">
                 <div class="background-media">
-                    <iframe title="American Dream Entertainment Video" loading="lazy" src="https://www.youtube.com/embed/G6fMtsWiZnQ?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&autohide=1&playlist=G6fMtsWiZnQ&playsinline=1" frameborder="0" allow="autoplay; encrypted-media" class="bg-video" allowfullscreen></iframe>
+                    <img src="./assets/ent_fallback.png" alt="Entertainment Background Fallback" class="video-fallback" loading="lazy">
+                    <iframe title="American Dream Entertainment Video" class="bg-video scroll-triggered-video" data-src="https://www.youtube.com/embed/G6fMtsWiZnQ?autoplay=1&mute=1&loop=1&controls=0&disablekb=1&fs=0&modestbranding=1&iv_load_policy=3&rel=0&playlist=G6fMtsWiZnQ&playsinline=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                     <div class="overlay dark"></div>
                 </div>
                 <div class="content-wrapper central">
@@ -150,8 +180,39 @@
                 </div>
                 <div class="text-side">
                     <h2 class="section-title">GLOBAL FLAVORS</h2>
-                    <p class="section-body">More than a meal—a culinary journey. Featuring celebrity chefs and world-renowned concepts that drive dwell time and repeat visits.</p>
+                    <p class="section-body">Over 100 dining destinations ranging from casual bites to fine dining. Featuring concepts by celebrity chefs (e.g., Marcus Samuelsson) that drive evening traffic and dramatically extend visitor dwell time (+4 hours avg).</p>
+                    
+                    <div class="stats-grid" style="margin-top: 2rem; margin-bottom: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="stat-card" style="padding: 1rem;">
+                            <h3 style="color: var(--accent-gold);">100+</h3>
+                            <p style="font-size:0.8rem;">Culinary Concepts</p>
+                        </div>
+                        <div class="stat-card" style="padding: 1rem;">
+                            <h3 style="color: var(--accent-gold);">30%</h3>
+                            <p style="font-size:0.8rem;">Traffic Increase Post-5PM</p>
+                        </div>
+                    </div>
+
                     <button class="btn btn-outline">Partner With Us</button>
+                </div>
+            </section>
+
+            <!-- Exposition Center -->
+            <section id="expo" class="full-page split-section">
+                <div class="image-side relative">
+                    <img src="./assets/expo_fallback.png" alt="Exposition Center" loading="lazy">
+                    <div class="ai-badge">✨ AI Visual</div>
+                </div>
+                <div class="text-side">
+                    <h2 class="section-title">EXPOSITION CENTER</h2>
+                    <p class="section-body">Unmatched visibility into performing arts potential and convention center opportunities. Our exposition spaces host e-sports tournaments, global trade shows, and international conferences, drawing millions of dedicated attendees.</p>
+                    <div class="attraction-tags" style="margin-top:2rem;">
+                        <span>Trade Shows</span>
+                        <span>E-Sports</span>
+                        <span>Galas</span>
+                    </div>
+                    <br><br>
+                    <button class="btn btn-outline">Book a Hall</button>
                 </div>
             </section>
 
@@ -185,8 +246,28 @@
             </section>
         </main>
 
-        <footer class="minimal-footer">
-            <p>&copy; 2026 American Dream. All Rights Reserved. <span class="brand-accent">Beyond The Ordinary.</span></p>
+        <footer class="comprehensive-footer">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>AMERICAN DREAM</h4>
+                    <p>1 American Dream Way<br>East Rutherford, NJ 07073</p>
+                </div>
+                <div class="footer-col">
+                    <h4>CONTACT</h4>
+                    <p>Leasing: leasing@americandream.com<br>Events: events@americandream.com<br>Phone: +1 (833) 263-7326</p>
+                </div>
+                <div class="footer-col">
+                    <h4>CONNECT</h4>
+                    <div class="social-links">
+                        <a href="#">Instagram</a>
+                        <a href="#">LinkedIn</a>
+                        <a href="#">X (Twitter)</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 American Dream. All Rights Reserved. <span class="brand-accent">Beyond The Ordinary.</span></p>
+            </div>
         </footer>
 
         <!-- Phase 2: Expandable Events Module Overlay -->
@@ -259,6 +340,62 @@
                                 </select>
                                 <textarea placeholder="Tell us about your event..." aria-label="Event Details"></textarea>
                                 <button type="submit" class="btn btn-primary full-width">Submit Inquiry</button>
+                            </form>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+        <!-- Phase 2: Expandable Sponsorship Module Overlay -->
+        <div id="sponsorship-module" class="module-overlay">
+            <div class="module-panel">
+                <button class="close-module" aria-label="Close Module">&times;</button>
+                <div class="module-header">
+                    <span class="eyebrow">Amplify Your Brand</span>
+                    <h2>SPONSORSHIP & PARTNERSHIPS</h2>
+                </div>
+                
+                <div class="module-grid">
+                    <div class="module-main">
+                        <section class="module-inner-section">
+                            <h3>High-Impact Opportunities</h3>
+                            <div class="specs-grid">
+                                <div class="spec-tile">
+                                    <span class="spec-label">Digital Signage</span>
+                                    <span class="spec-value">300+ Screens</span>
+                                </div>
+                                <div class="spec-tile">
+                                    <span class="spec-label">Naming Rights</span>
+                                    <span class="spec-value">Premium Zones</span>
+                                </div>
+                                <div class="spec-tile">
+                                    <span class="spec-label">Experiential</span>
+                                    <span class="spec-value">Custom Buildouts</span>
+                                </div>
+                                <div class="spec-tile">
+                                    <span class="spec-label">Wi-Fi Takeover</span>
+                                    <span class="spec-value">100% Reach</span>
+                                </div>
+                            </div>
+                            <p class="section-body" style="margin-top: 2rem;">Align your brand with the pinnacle of retail and entertainment. We offer bespoke partnership packages that guarantee multi-million impression exposure across our high-net-worth visitor base.</p>
+                        </section>
+                    </div>
+
+                    <aside class="module-sidebar">
+                        <div class="booking-card">
+                            <h3>Request Media Kit</h3>
+                            <p>Get detailed demographic breakdowns and pricing structures.</p>
+                            <form class="lead-form sponsorship-form">
+                                <input type="text" placeholder="Full Name" aria-label="Full Name" required>
+                                <input type="email" placeholder="Corporate Email" aria-label="Corporate Email" required>
+                                <select aria-label="Budget Range">
+                                    <option>Budget Range</option>
+                                    <option>$50k - $250k</option>
+                                    <option>$250k - $1M</option>
+                                    <option>$1M+</option>
+                                </select>
+                                <textarea placeholder="Tell us about your brand goals..." aria-label="Brand Goals"></textarea>
+                                <button type="submit" class="btn btn-primary full-width">Download Kit</button>
                             </form>
                         </div>
                     </aside>
