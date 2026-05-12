@@ -1,53 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>American Dream | The Global Destination</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
-    <meta name="description" content="Explore the world's most ambitious retail and entertainment destination. A cinematic interactive sales experience for American Dream NJ.">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+    <meta name="description"
+        content="Explore the world's most ambitious retail and entertainment destination. A cinematic interactive sales experience for American Dream NJ.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://www.youtube.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
 </head>
+
 <body class="dark-theme">
-    <div id="app">
+    <!-- Premium Intro Sequence -->
+    <div id="intro-overlay" class="intro-overlay">
+        <iframe id="intro-video" class="intro-video"
+            src="https://www.youtube.com/embed/55J9_viCQb4?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&loop=1&playlist=55J9_viCQb4&modestbranding=1&playsinline=1"
+            frameborder="0" allow="autoplay; fullscreen" allowfullscreen>
+        </iframe>
+        
+        <div class="intro-logo-reveal">
+            <h2 class="reveal-text">AMERICAN DREAM</h2>
+            <div class="reveal-bar"></div>
+        </div>
+        
+        <button id="skip-intro" class="skip-btn">SKIP TO DECK</button>
+    </div>
+
+    <script>
+        (function() {
+            const intro = document.getElementById('intro-overlay');
+            const skip = document.getElementById('skip-intro');
+
+            const clearIntro = () => {
+                if (!intro || intro.style.display === 'none') return;
+                intro.classList.add('fade-out');
+                setTimeout(() => {
+                    intro.style.display = 'none';
+                    const splash = document.getElementById('splash-screen');
+                    if (splash) splash.classList.add('visible');
+                }, 600);
+            };
+
+            // Cinematic Intro duration (8 seconds before auto-skip to let you see the property)
+            const timer = setTimeout(clearIntro, 8000);
+
+            if (skip) skip.onclick = clearIntro;
+        })();
+    </script>
+
+    <!-- Interactive Splash Screen -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-background"></div>
+        <div class="splash-content">
+            <span class="eyebrow">Interactive Sales Experience</span>
+            <h1 class="splash-title">AMERICAN DREAM</h1>
+            <p class="splash-tagline">The Global Destination for Retail & Entertainment</p>
+            <button id="start-presentation" class="btn-start">START PRESENTATION</button>
+        </div>
+    </div>
+
+    <div id="app" class="presentation-hidden">
+        <!-- Navigation Arrows Overlay -->
+        <div class="nav-arrows">
+            <button id="prev-slide" class="nav-arrow prev" aria-label="Previous Slide">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+            </button>
+            <button id="next-slide" class="nav-arrow next" aria-label="Next Slide">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+            </button>
+        </div>
         <!-- Top Header -->
         <header class="top-header">
-            <div class="brand-logo">AMERICAN DREAM</div>
-            <button class="btn btn-outline btn-sm cta-top" onclick="document.getElementById('events-module').classList.add('active'); document.body.style.overflow='hidden';">INQUIRE NOW</button>
+            <div class="brand-logo">AMERICAN DREAM <span id="header-chapter">The Global Destination</span></div>
+            <div class="header-right">
+                <button class="btn btn-outline btn-sm cta-top"
+                    onclick="document.getElementById('events-module').classList.add('active'); document.body.style.overflow='hidden';">INQUIRE NOW</button>
+            </div>
         </header>
 
         <!-- Navigation -->
         <nav class="side-nav">
             <div class="nav-dots">
                 <a href="#hero" class="nav-dot active" data-title="Intro"><span class="sr-only">Intro</span></a>
-                <a href="#why" class="nav-dot" data-title="Why American Dream"><span class="sr-only">Why American Dream</span></a>
+                <a href="#why" class="nav-dot" data-title="Why American Dream"><span class="sr-only">Why American
+                        Dream</span></a>
                 <a href="#retail" class="nav-dot" data-title="Retail"><span class="sr-only">Retail</span></a>
                 <a href="#luxury" class="nav-dot" data-title="Luxury"><span class="sr-only">Luxury</span></a>
-                <a href="#entertainment" class="nav-dot" data-title="Entertainment"><span class="sr-only">Entertainment</span></a>
+                <a href="#entertainment" class="nav-dot" data-title="Entertainment"><span
+                        class="sr-only">Entertainment</span></a>
                 <a href="#dining" class="nav-dot" data-title="Dining"><span class="sr-only">Dining</span></a>
-                <a href="#expo" class="nav-dot" data-title="Exposition Center"><span class="sr-only">Exposition Center</span></a>
-                <a href="#events" class="nav-dot" data-title="Events & Platform"><span class="sr-only">Events & Platform</span></a>
+                <a href="#expo" class="nav-dot" data-title="Exposition Center"><span class="sr-only">Exposition
+                        Center</span></a>
+                <a href="#events" class="nav-dot" data-title="Events & Platform"><span class="sr-only">Events &
+                        Platform</span></a>
             </div>
             <div class="nav-label">Intro</div>
         </nav>
 
         <!-- Section Transition Overlay -->
         <div id="section-transition" class="section-transition"></div>
+        <div id="slide-progress" class="slide-progress"></div>
+        <div id="slide-counter" class="slide-counter"><span id="slide-chapter-name">Introduction</span><span><span class="current">01</span> / 09</span></div>
+        <div id="keyboard-hint" class="keyboard-hint"><span class="key-icon">↑</span><span class="key-icon">↓</span>
+            Navigate Slides</div>
 
         <!-- Main Content -->
         <main class="content-container">
             <!-- Hero Section -->
             <section id="hero" class="full-page hero-section">
                 <div class="background-media">
-                    <img src="./assets/hero_fallback.png" alt="American Dream Hero Background Fallback" class="video-fallback" loading="eager">
-                    <iframe title="American Dream Hero Video" src="https://www.youtube.com/embed/nlB8mRFGxjw?autoplay=1&mute=1&loop=1&controls=0&disablekb=1&fs=0&modestbranding=1&iv_load_policy=3&rel=0&playlist=nlB8mRFGxjw&playsinline=1" frameborder="0" allow="autoplay; encrypted-media" class="bg-video" allowfullscreen></iframe>
+                    <img src="./assets/hero_fallback.png" alt="American Dream Hero Background Fallback"
+                        class="video-fallback" loading="eager">
+                    <iframe title="American Dream Hero Video"
+                        src="https://www.youtube.com/embed/nlB8mRFGxjw?autoplay=1&mute=1&loop=1&controls=0&disablekb=1&fs=0&modestbranding=1&iv_load_policy=3&rel=0&playlist=nlB8mRFGxjw&playsinline=1"
+                        frameborder="0" allow="autoplay; encrypted-media" class="bg-video" allowfullscreen></iframe>
                     <div class="overlay"></div>
                 </div>
                 <div class="hero-content">
+                    <span class="slide-eyebrow">American Dream &middot; East Rutherford, NJ</span>
                     <h1 class="reveal-text">BEYOND IMAGINATION</h1>
                     <p class="subtitle">The World's Greatest Retail & Entertainment Stage.</p>
                     <div class="cta-group">
@@ -63,6 +141,8 @@
             <!-- Why This Property -->
             <section id="why" class="full-page stats-section">
                 <div class="content-wrapper">
+                    <span class="slide-eyebrow">Why This Property</span>
+                    <span class="slide-rule"></span>
                     <h2 class="section-title">THE SCALE OF OPPORTUNITY</h2>
                     <div class="stats-grid">
                         <div class="stat-card">
@@ -87,9 +167,12 @@
                         <div class="map-container">
                             <img src="./assets/map.png" alt="Catchment Map" class="catchment-map" loading="lazy">
                             <div class="map-overlay">
-                                <div class="pulse-point" style="top: 50%; left: 50%;" data-tooltip="East Rutherford: Core Hub"></div>
-                                <div class="pulse-point" style="top: 40%; left: 60%;" data-tooltip="Manhattan: 20 Mins"></div>
-                                <div class="pulse-point" style="top: 30%; left: 40%;" data-tooltip="Bergen County: Affluent Base"></div>
+                                <div class="pulse-point" style="top: 50%; left: 50%;"
+                                    data-tooltip="East Rutherford: Core Hub"></div>
+                                <div class="pulse-point" style="top: 40%; left: 60%;" data-tooltip="Manhattan: 20 Mins">
+                                </div>
+                                <div class="pulse-point" style="top: 30%; left: 40%;"
+                                    data-tooltip="Bergen County: Affluent Base"></div>
                                 <span class="map-caption">20M+ Residents within 50 miles</span>
                             </div>
                         </div>
@@ -118,8 +201,12 @@
                     <div class="ai-badge">✨ AI Visual</div>
                 </div>
                 <div class="text-side">
+                    <span class="slide-eyebrow">Retail · 500+ Brands</span>
+                    <span class="slide-rule"></span>
                     <h2 class="section-title">THE RETAIL REVOLUTION</h2>
-                    <p class="section-body">A meticulously curated collection of the world's most sought-after brands. We blend fast-fashion, experiential flagships, and digital-native brands entering brick-and-mortar.</p>
+                    <p class="section-body">A meticulously curated collection of the world's most sought-after brands.
+                        We blend fast-fashion, experiential flagships, and digital-native brands entering
+                        brick-and-mortar.</p>
                     <div class="attraction-tags" style="margin-top:2rem;">
                         <span>Zara Flagship</span>
                         <span>Primark</span>
@@ -138,9 +225,12 @@
                     <img src="./assets/luxury.png" alt="Luxury Retail" loading="lazy">
                 </div>
                 <div class="text-side">
+                    <span class="slide-eyebrow">Luxury · The Avenue</span>
+                    <span class="slide-rule"></span>
                     <h2 class="section-title">CURATED LUXURY</h2>
-                    <p class="section-body">The Avenue: a distinct, elevated experience featuring private valet, champagne bars, and a global runway for the world's most prestigious luxury houses.</p>
-                    
+                    <p class="section-body">The Avenue: a distinct, elevated experience featuring private valet,
+                        champagne bars, and a global runway for the world's most prestigious luxury houses.</p>
+
                     <!-- New: Logo Grid -->
                     <div class="logo-grid">
                         <div class="logo-item">HERMÈS</div>
@@ -158,13 +248,19 @@
             <!-- Entertainment -->
             <section id="entertainment" class="full-page interactive-section">
                 <div class="background-media">
-                    <img src="./assets/ent_fallback.png" alt="Entertainment Background Fallback" class="video-fallback" loading="lazy">
-                    <iframe title="American Dream Entertainment Video" class="bg-video scroll-triggered-video" data-src="https://www.youtube.com/embed/G6fMtsWiZnQ?autoplay=1&mute=1&loop=1&controls=0&disablekb=1&fs=0&modestbranding=1&iv_load_policy=3&rel=0&playlist=G6fMtsWiZnQ&playsinline=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <img src="./assets/ent_fallback.png" alt="Entertainment Background Fallback" class="video-fallback"
+                        loading="lazy">
+                    <iframe title="American Dream Entertainment Video" class="bg-video scroll-triggered-video"
+                        data-src="https://www.youtube.com/embed/G6fMtsWiZnQ?autoplay=1&mute=1&loop=1&controls=0&disablekb=1&fs=0&modestbranding=1&iv_load_policy=3&rel=0&playlist=G6fMtsWiZnQ&playsinline=1"
+                        frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                     <div class="overlay dark"></div>
                 </div>
                 <div class="content-wrapper central">
+                    <span class="slide-eyebrow">Entertainment · 4 World-Class Venues</span>
+                    <span class="slide-rule"></span>
                     <h2 class="section-title">UNRIVALED ATTRACTIONS</h2>
-                    <p class="section-body">Home to North America’s largest indoor water park, theme park, and only indoor ski resort.</p>
+                    <p class="section-body">Home to North America’s largest indoor water park, theme park, and only
+                        indoor ski resort.</p>
                     <div class="attraction-tags">
                         <span>Nickelodeon Universe</span>
                         <span>DreamWorks Water Park</span>
@@ -180,9 +276,13 @@
                     <img src="./assets/dining.png" alt="Dining & Lifestyle" loading="lazy">
                 </div>
                 <div class="text-side">
+                    <span class="slide-eyebrow">Dining · 100+ Culinary Concepts</span>
+                    <span class="slide-rule"></span>
                     <h2 class="section-title">GLOBAL FLAVORS</h2>
-                    <p class="section-body">Over 100 dining destinations ranging from casual bites to fine dining. Featuring concepts by celebrity chefs that drive evening traffic and dramatically extend visitor dwell time (+4 hours avg).</p>
-                    
+                    <p class="section-body">Over 100 dining destinations ranging from casual bites to fine dining.
+                        Featuring concepts by celebrity chefs that drive evening traffic and dramatically extend visitor
+                        dwell time (+4 hours avg).</p>
+
                     <div class="dining-categories">
                         <div class="cat-tag">Fine Dining</div>
                         <div class="cat-tag">Quick Service</div>
@@ -197,7 +297,8 @@
                         <span>Wetzel's Pretzels</span>
                     </div>
 
-                    <div class="stats-grid" style="margin-top: 2rem; margin-bottom: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="stats-grid"
+                        style="margin-top: 2rem; margin-bottom: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                         <div class="stat-card" style="padding: 1rem;">
                             <h3 style="color: var(--accent-gold);">100+</h3>
                             <p style="font-size:0.8rem;">Culinary Concepts</p>
@@ -219,8 +320,12 @@
                     <div class="ai-badge">✨ AI Visual</div>
                 </div>
                 <div class="text-side">
+                    <span class="slide-eyebrow">Events · 300,000 Sq. Ft.</span>
+                    <span class="slide-rule"></span>
                     <h2 class="section-title">EXPOSITION CENTER</h2>
-                    <p class="section-body">Unmatched visibility into performing arts potential and convention center opportunities. Our 300,000 sq. ft. exposition spaces host e-sports tournaments, global trade shows, and international conferences.</p>
+                    <p class="section-body">Unmatched visibility into performing arts potential and convention center
+                        opportunities. Our 300,000 sq. ft. exposition spaces host e-sports tournaments, global trade
+                        shows, and international conferences.</p>
                     <div class="specs-mini">
                         <div class="spec-mini-item">
                             <strong>Capacity</strong>
@@ -245,9 +350,12 @@
             <!-- Events & Platform -->
             <section id="events" class="full-page call-to-action">
                 <div class="content-wrapper text-center">
+                    <span class="slide-eyebrow">Platform · Sponsorship &amp; Activation</span>
+                    <span class="slide-rule"></span>
                     <h2 class="section-title">YOUR GLOBAL PLATFORM</h2>
-                    <p class="section-body large">American Dream is more than a building. It's a stage for world-class events, brand activations, and cultural moments.</p>
-                    
+                    <p class="section-body large">American Dream is more than a building. It's a stage for world-class
+                        events, brand activations, and cultural moments.</p>
+
                     <!-- New: Capacity Stats -->
                     <div class="capacity-stats">
                         <div class="cap-item">
@@ -280,7 +388,8 @@
                 </div>
                 <div class="footer-col">
                     <h4>CONTACT</h4>
-                    <p>Leasing: leasing@americandream.com<br>Events: events@americandream.com<br>Phone: +1 (833) 263-7326</p>
+                    <p>Leasing: leasing@americandream.com<br>Events: events@americandream.com<br>Phone: +1 (833)
+                        263-7326</p>
                 </div>
                 <div class="footer-col">
                     <h4>CONNECT</h4>
@@ -292,7 +401,8 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 American Dream. All Rights Reserved. <span class="brand-accent">Beyond The Ordinary.</span></p>
+                <p>&copy; 2026 American Dream. All Rights Reserved. <span class="brand-accent">Beyond The
+                        Ordinary.</span></p>
             </div>
         </footer>
 
@@ -304,7 +414,7 @@
                     <span class="eyebrow">Expand Your Reach</span>
                     <h2>EVENTS & ACTIVATIONS</h2>
                 </div>
-                
+
                 <div class="module-grid">
                     <div class="module-main">
                         <section class="module-inner-section">
@@ -364,7 +474,8 @@
                                     <option>Corporate Event</option>
                                     <option>Product Launch</option>
                                 </select>
-                                <textarea placeholder="Tell us about your event..." aria-label="Event Details"></textarea>
+                                <textarea placeholder="Tell us about your event..."
+                                    aria-label="Event Details"></textarea>
                                 <button type="submit" class="btn btn-primary full-width">Submit Inquiry</button>
                             </form>
                         </div>
@@ -380,7 +491,7 @@
                     <span class="eyebrow">Amplify Your Brand</span>
                     <h2>SPONSORSHIP & PARTNERSHIPS</h2>
                 </div>
-                
+
                 <div class="module-grid">
                     <div class="module-main">
                         <section class="module-inner-section">
@@ -403,7 +514,9 @@
                                     <span class="spec-value">100% Reach</span>
                                 </div>
                             </div>
-                            <p class="section-body" style="margin-top: 2rem;">Align your brand with the pinnacle of retail and entertainment. We offer bespoke partnership packages that guarantee multi-million impression exposure across our high-net-worth visitor base.</p>
+                            <p class="section-body" style="margin-top: 2rem;">Align your brand with the pinnacle of
+                                retail and entertainment. We offer bespoke partnership packages that guarantee
+                                multi-million impression exposure across our high-net-worth visitor base.</p>
                         </section>
                     </div>
 
@@ -420,7 +533,8 @@
                                     <option>$250k - $1M</option>
                                     <option>$1M+</option>
                                 </select>
-                                <textarea placeholder="Tell us about your brand goals..." aria-label="Brand Goals"></textarea>
+                                <textarea placeholder="Tell us about your brand goals..."
+                                    aria-label="Brand Goals"></textarea>
                                 <button type="submit" class="btn btn-primary full-width">Download Kit</button>
                             </form>
                         </div>
@@ -436,7 +550,7 @@
                     <span class="eyebrow">Strategic Placement</span>
                     <h2>LEASING OPPORTUNITIES</h2>
                 </div>
-                
+
                 <div class="module-grid">
                     <div class="module-main">
                         <section class="module-inner-section">
@@ -459,7 +573,9 @@
                                     <span>40M+ Projected</span>
                                 </div>
                             </div>
-                            <p class="section-body" style="margin-top: 2rem;">Join the world's most innovative retail ecosystem. From high-street flagships to digital-native pop-ups, American Dream offers the ultimate platform for brand growth and customer engagement.</p>
+                            <p class="section-body" style="margin-top: 2rem;">Join the world's most innovative retail
+                                ecosystem. From high-street flagships to digital-native pop-ups, American Dream offers
+                                the ultimate platform for brand growth and customer engagement.</p>
                         </section>
                     </div>
 
@@ -477,7 +593,8 @@
                                     <option>Entertainment</option>
                                     <option>Luxury / The Avenue</option>
                                 </select>
-                                <textarea placeholder="Describe your brand concept..." aria-label="Brand Concept"></textarea>
+                                <textarea placeholder="Describe your brand concept..."
+                                    aria-label="Brand Concept"></textarea>
                                 <button type="submit" class="btn btn-primary full-width">Request Brochure</button>
                             </form>
                         </div>
@@ -488,4 +605,5 @@
     </div>
     <script type="module" src="./main.js"></script>
 </body>
+
 </html>

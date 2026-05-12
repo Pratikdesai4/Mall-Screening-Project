@@ -1,50 +1,269 @@
+/**
+ * American Dream — Interactive Sales Deck
+ * main.js — Deck Engine
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
-    initScrollAnimations();
+    initIntroSequence();
+    initDeck();
     initStatsCounter();
-    initNavigation();
     initModules();
     initVideoFallback();
 });
 
-/**
- * Scroll Animations using Intersection Observer
- */
-function initScrollAnimations() {
-    const observerOptions = {
-        threshold: 0.1
+// ============================================================
+// INTRO SEQUENCE — Cinematic Video & Splash
+// ============================================================
+function initIntroSequence() {
+    const introOverlay = document.getElementById('intro-overlay');
+    const splashScreen = document.getElementById('splash-screen');
+    const introVideo = document.getElementById('intro-video');
+    const skipBtn = document.getElementById('skip-intro');
+    const startBtn = document.getElementById('start-presentation');
+    const appContainer = document.getElementById('app');
+
+    const endIntro = () => {
+        if (!introOverlay || introOverlay.style.display === 'none') return;
+        introOverlay.classList.add('fade-out');
+        setTimeout(() => {
+            introOverlay.style.display = 'none';
+            if (splashScreen) splashScreen.classList.add('visible');
+        }, 800);
     };
 
-    const observer = new IntersectionObserver((entries) => {
+    // Auto-timeout: If video hasn't played in 4 seconds, go to splash
+    const introTimeout = setTimeout(endIntro, 4000);
+
+    if (introVideo) {
+        introVideo.onplay = () => clearTimeout(introTimeout);
+        introVideo.onended = endIntro;
+        introVideo.onerror = endIntro;
+        // Attempt autoplay
+        introVideo.play().catch(endIntro);
+    }
+
+    if (skipBtn) {
+        skipBtn.onclick = endIntro;
+    }
+
+    if (startBtn) {
+        startBtn.onclick = () => {
+            if (!splashScreen) return;
+            splashScreen.classList.add('fade-out');
+            setTimeout(() => {
+                splashScreen.style.display = 'none';
+                if (appContainer) {
+                    appContainer.classList.remove('presentation-hidden');
+                    appContainer.classList.add('presentation-reveal');
+                }
+                // Small delay to ensure display:block is rendered before animation
+                setTimeout(() => {
+                    const firstSlide = document.querySelector('.full-page');
+                    if (firstSlide) firstSlide.classList.add('visible');
+                }, 50);
+            }, 1000);
+        };
+    }
+}
+
+// ============================================================
+// DECK ENGINE — Core scroll-snap deck with keyboard + dots
+// ============================================================
+function initDeck() {
+    const container = document.querySelector('.content-container');
+    const sections = Array.from(document.querySelectorAll('.full-page, .comprehensive-footer'));
+    const dots = document.querySelectorAll('.nav-dot');
+    const transitionOverlay = document.getElementById('section-transition');
+    const progressBar = document.getElementById('slide-progress');
+    const counterEl = document.getElementById('slide-counter');
+    const keyboardHint = document.getElementById('keyboard-hint');
+    const headerChapter = document.getElementById('header-chapter');
+    const bottomChapter = document.getElementById('slide-chapter-name');
+    const totalSlides = sections.length;
+    let currentIndex = 0;
+    let isTransitioning = false;
+
+    const chapterNames = [
+        'Introduction', 'Scale of Opportunity', 'The Retail Revolution',
+        'Curated Luxury', 'Unrivaled Attractions', 'Global Flavors',
+        'Exposition Center', 'Your Global Platform', 'Contact'
+    ];
+
+    // ── Slide counter display ──
+    function updateCounter(index) {
+        if (!counterEl) return;
+        const numSpan = counterEl.querySelector('.current');
+        if (numSpan) numSpan.textContent = String(index + 1).padStart(2, '0');
+        const chapter = chapterNames[index] || '';
+        if (headerChapter) headerChapter.textContent = chapter;
+        if (bottomChapter) bottomChapter.textContent = chapter;
+    }
+
+    // ── Progress bar ──
+    function updateProgress(index) {
+        if (!progressBar) return;
+        const pct = ((index + 1) / totalSlides) * 100;
+        progressBar.style.width = pct + '%';
+    }
+
+    // ── Nav dots ──
+    function updateDots(index) {
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+        });
+    }
+
+    // ── Section visibility (fade-in on enter) ──
+    const visibilityObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                updateNav(entry.target.id);
+
+                // Trigger child animations
+                const animatables = entry.target.querySelectorAll('[data-animate]');
+                animatables.forEach((el, i) => {
+                    setTimeout(() => el.classList.add('visible'), i * 80);
+                });
             }
         });
-    }, observerOptions);
+    }, { threshold: 0.15, root: container });
 
-    document.querySelectorAll('section').forEach(section => {
-        observer.observe(section);
-        // Add animation class to children
-        section.querySelectorAll('h2, p, .stat-card, .btn, .tenant-list li, .demo-card, .logo-item, .cap-item').forEach(el => {
-            el.setAttribute('data-animate', '');
-        });
+    sections.forEach(section => {
+        visibilityObserver.observe(section);
 
-        const animatables = section.querySelectorAll('[data-animate]');
-        const innerObserver = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('visible');
-                    }, index * 100);
-                }
+        // Prepare animatable children (exclude footer elements so they are always visible)
+        if (!section.classList.contains('comprehensive-footer')) {
+            section.querySelectorAll('h2, p, .stat-card, .btn, .logo-item, .demo-card, .cap-item, .attraction-tags span, .cat-tag, .spec-mini-item').forEach(el => {
+                el.setAttribute('data-animate', '');
             });
-        }, { threshold: 0.05 });
-
-        animatables.forEach(el => innerObserver.observe(el));
+        }
     });
 
-    // Scroll-Triggered Video Observer
+    // ── Go to slide ──
+    function goToSlide(index, useTransition = true) {
+        if (isTransitioning || index < 0 || index >= totalSlides) return;
+        isTransitioning = true;
+
+        const target = sections[index];
+
+        if (useTransition && transitionOverlay) {
+            transitionOverlay.classList.add('active');
+            setTimeout(() => {
+                target.scrollIntoView({ behavior: 'auto', block: 'start' });
+                currentIndex = index;
+                updateDots(currentIndex);
+                updateProgress(currentIndex);
+                updateCounter(currentIndex);
+
+                setTimeout(() => {
+                    transitionOverlay.classList.remove('active');
+                    isTransitioning = false;
+                }, 300);
+            }, 350);
+        } else {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            currentIndex = index;
+            updateDots(currentIndex);
+            updateProgress(currentIndex);
+            updateCounter(currentIndex);
+            setTimeout(() => { isTransitioning = false; }, 800);
+        }
+    }
+
+    // ── Detect current slide on scroll ──
+    const scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const idx = sections.indexOf(entry.target);
+                if (idx !== -1 && idx !== currentIndex) {
+                    currentIndex = idx;
+                    updateDots(currentIndex);
+                    updateProgress(currentIndex);
+                    updateCounter(currentIndex);
+                }
+            }
+        });
+    }, { threshold: 0.5, root: container });
+
+    sections.forEach(s => scrollObserver.observe(s));
+
+    // ── Dot nav clicks ──
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', (e) => {
+            e.preventDefault();
+            goToSlide(index);
+            if (keyboardHint) keyboardHint.classList.add('hidden');
+        });
+    });
+
+    // ── Keyboard navigation ──
+    document.addEventListener('keydown', (e) => {
+        // Don't hijack keyboard when a module is open or user is typing
+        if (document.querySelector('.module-overlay.active')) return;
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+
+        if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+            e.preventDefault();
+            goToSlide(currentIndex + 1, false);
+            if (keyboardHint) keyboardHint.classList.add('hidden');
+        }
+
+        if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+            e.preventDefault();
+            goToSlide(currentIndex - 1, false);
+            if (keyboardHint) keyboardHint.classList.add('hidden');
+        }
+
+        // Number keys 1-9 for direct jump
+        const num = parseInt(e.key);
+        if (!isNaN(num) && num >= 1 && num <= totalSlides) {
+            goToSlide(num - 1);
+        }
+    });
+
+    // ── Mouse wheel — one section per scroll ──
+    let wheelTimeout;
+    container.addEventListener('wheel', (e) => {
+        // If a module is open, don't intercept
+        if (document.querySelector('.module-overlay.active')) return;
+
+        e.preventDefault();
+        clearTimeout(wheelTimeout);
+        wheelTimeout = setTimeout(() => {
+            if (e.deltaY > 0) {
+                goToSlide(currentIndex + 1, false);
+            } else {
+                goToSlide(currentIndex - 1, false);
+            }
+            if (keyboardHint) keyboardHint.classList.add('hidden');
+        }, 50);
+    }, { passive: false });
+
+    // ── Touch swipe support ──
+    let touchStartY = 0;
+    container.addEventListener('touchstart', (e) => {
+        touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    container.addEventListener('touchend', (e) => {
+        if (document.querySelector('.module-overlay.active')) return;
+        const delta = touchStartY - e.changedTouches[0].clientY;
+        if (Math.abs(delta) > 50) {
+            if (delta > 0) goToSlide(currentIndex + 1, false);
+            else goToSlide(currentIndex - 1, false);
+        }
+    }, { passive: true });
+
+    // ── Explore button ──
+    const exploreBtn = document.getElementById('btn-explore');
+    if (exploreBtn) {
+        exploreBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            goToSlide(1, false);
+        });
+    }
+
+    // ── Scroll-triggered video lazy load ──
     const videoObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -54,31 +273,47 @@ function initScrollAnimations() {
                 }
             }
         });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.1, root: container });
 
-    document.querySelectorAll('.scroll-triggered-video').forEach(video => {
-        videoObserver.observe(video);
-    });
+    // ── Overlay Arrows ──
+    const prevBtn = document.getElementById('prev-slide');
+    const nextBtn = document.getElementById('next-slide');
+    if (prevBtn) prevBtn.onclick = () => goToSlide(currentIndex - 1, false);
+    if (nextBtn) nextBtn.onclick = () => goToSlide(currentIndex + 1, false);
+
+    document.querySelectorAll('.scroll-triggered-video').forEach(v => videoObserver.observe(v));
+
+    // Initialize
+    updateDots(0);
+    updateProgress(0);
+    updateCounter(0);
+
+    // Fade out keyboard hint after 4 seconds
+    if (keyboardHint) {
+        setTimeout(() => keyboardHint.classList.add('hidden'), 5000);
+    }
 }
 
-/**
- * Stats Counter Animation
- */
+// ============================================================
+// STATS COUNTER ANIMATION
+// ============================================================
 function initStatsCounter() {
     const statValues = document.querySelectorAll('.stat-value');
+    const container = document.querySelector('.content-container');
 
     const countUp = (el) => {
         const target = parseInt(el.getAttribute('data-target'));
-        const duration = 2500; // slightly slower for premium feel
+        if (!target) return;
+        const duration = 2200;
         const frameRate = 16;
         const totalFrames = duration / frameRate;
         const increment = target / totalFrames;
-        let currentCount = 0;
+        let current = 0;
 
         const animate = () => {
-            currentCount += increment;
-            if (currentCount < target) {
-                el.innerText = Math.ceil(currentCount).toLocaleString();
+            current += increment;
+            if (current < target) {
+                el.innerText = Math.ceil(current).toLocaleString();
                 requestAnimationFrame(animate);
             } else {
                 el.innerText = target.toLocaleString();
@@ -90,14 +325,11 @@ function initStatsCounter() {
     const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // Delay slightly to ensure visibility
-                setTimeout(() => {
-                    countUp(entry.target);
-                }, 200);
+                setTimeout(() => countUp(entry.target), 300);
                 obs.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.2 });
+    }, { threshold: 0.1, root: container });
 
     statValues.forEach(val => {
         val.innerText = '0';
@@ -105,61 +337,9 @@ function initStatsCounter() {
     });
 }
 
-/**
- * Navigation Logic
- */
-function initNavigation() {
-    const dots = document.querySelectorAll('.nav-dot');
-    const transitionOverlay = document.getElementById('section-transition');
-
-    dots.forEach(dot => {
-        dot.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = dot.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-
-            if (targetSection) {
-                transitionOverlay.classList.add('active');
-
-                setTimeout(() => {
-                    targetSection.scrollIntoView({ behavior: 'auto', block: 'start' });
-                    
-                    // Force update nav just in case observer misses it during jump
-                    updateNav(targetId.substring(1));
-
-                    setTimeout(() => {
-                        transitionOverlay.classList.remove('active');
-                    }, 300);
-                }, 500);
-            }
-        });
-    });
-
-    const exploreBtn = document.getElementById('btn-explore');
-    if (exploreBtn) {
-        exploreBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            document.querySelector('#why').scrollIntoView({ behavior: 'smooth' });
-        });
-    }
-}
-
-function updateNav(sectionId) {
-    const dots = document.querySelectorAll('.nav-dot');
-    const navLabel = document.querySelector('.nav-label');
-
-    dots.forEach(dot => {
-        dot.classList.remove('active');
-        if (dot.getAttribute('href') === `#${sectionId}`) {
-            dot.classList.add('active');
-            navLabel.innerText = dot.getAttribute('data-title');
-        }
-    });
-}
-
-/**
- * Phase 2: Modules Logic (Events, Sponsorship, Leasing)
- */
+// ============================================================
+// PHASE 2 MODULE OVERLAYS
+// ============================================================
 function initModules() {
     const eventsOverlay = document.getElementById('events-module');
     const sponsorshipOverlay = document.getElementById('sponsorship-module');
@@ -177,33 +357,44 @@ function initModules() {
         document.body.style.overflow = '';
     };
 
-    // Generic triggers
-    document.querySelectorAll('.btn-events-trigger').forEach(btn => {
-        btn.addEventListener('click', () => openModule(eventsOverlay));
-    });
+    // Triggers
+    document.querySelectorAll('.btn-events-trigger').forEach(btn =>
+        btn.addEventListener('click', () => openModule(eventsOverlay))
+    );
+    document.querySelectorAll('.btn-leasing-trigger').forEach(btn =>
+        btn.addEventListener('click', () => openModule(leasingOverlay))
+    );
 
-    document.querySelectorAll('.btn-leasing-trigger').forEach(btn => {
-        btn.addEventListener('click', () => openModule(leasingOverlay));
-    });
+    // Top INQUIRE NOW button → events module
+    document.querySelector('.cta-top')?.addEventListener('click', () => openModule(eventsOverlay));
 
-    // Special handling for old classes if any
+    // Sponsorship Deck button
     document.querySelectorAll('.btn-secondary').forEach(btn => {
         if (btn.innerText.toLowerCase().includes('sponsorship')) {
             btn.addEventListener('click', () => openModule(sponsorshipOverlay));
         }
     });
 
+    // Close buttons
     document.querySelectorAll('.close-module').forEach(btn => {
         btn.addEventListener('click', (e) => closeModule(e.target.closest('.module-overlay')));
     });
 
+    // Click backdrop to close
     document.querySelectorAll('.module-overlay').forEach(overlay => {
         overlay.addEventListener('click', (e) => {
             if (e.target === overlay) closeModule(overlay);
         });
     });
 
-    // Form Submissions
+    // Escape key to close
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.module-overlay.active').forEach(o => closeModule(o));
+        }
+    });
+
+    // Form submissions
     document.querySelectorAll('.lead-form').forEach(form => {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -214,33 +405,34 @@ function initModules() {
             submitBtn.innerText = 'Sending...';
 
             setTimeout(() => {
-                submitBtn.innerText = 'Request Received ✓';
-                submitBtn.style.backgroundColor = '#10B981';
+                submitBtn.innerText = '✓ Request Received';
+                submitBtn.style.background = '#10B981';
                 submitBtn.style.borderColor = '#10B981';
                 submitBtn.style.color = 'white';
 
                 setTimeout(() => {
                     submitBtn.innerText = originalText;
-                    submitBtn.style.backgroundColor = '';
+                    submitBtn.style.background = '';
                     submitBtn.style.borderColor = '';
                     submitBtn.style.color = '';
                     submitBtn.disabled = false;
                     form.reset();
                     closeModule(form.closest('.module-overlay'));
-                }, 2000);
-            }, 1000);
+                }, 2200);
+            }, 900);
         });
     });
 }
 
-/**
- * Handle YouTube Blocking
- */
+// ============================================================
+// VIDEO FALLBACK — handle YouTube blocked scenarios
+// ============================================================
 function initVideoFallback() {
-    // If user has network issues with YouTube, we ensure fallbacks are visible
-    // CSS already handles the layering, but we can add logic to hide iframes that fail
-    window.addEventListener('message', (event) => {
-        // YouTube postMessage API can be used to detect errors, but usually 
-        // a simple timeout or network check is more reliable for "blocked" status.
+    // Check if iframes load; if not, ensure fallback images are visible
+    document.querySelectorAll('.bg-video').forEach(iframe => {
+        // If YouTube is blocked, the fallback img behind it is shown via CSS z-index
+        iframe.addEventListener('error', () => {
+            iframe.style.display = 'none';
+        });
     });
 }
