@@ -21,16 +21,10 @@
 <body class="dark-theme">
     <!-- Premium Intro Sequence -->
     <div id="intro-overlay" class="intro-overlay">
-        <iframe id="intro-video" class="intro-video"
-            src="https://www.youtube.com/embed/55J9_viCQb4?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&loop=1&playlist=55J9_viCQb4&modestbranding=1&playsinline=1"
-            frameborder="0" allow="autoplay; fullscreen" allowfullscreen>
-        </iframe>
-        
         <div class="intro-logo-reveal">
             <h2 class="reveal-text">AMERICAN DREAM</h2>
             <div class="reveal-bar"></div>
         </div>
-        
         <button id="skip-intro" class="skip-btn">SKIP TO DECK</button>
     </div>
 
@@ -49,8 +43,8 @@
                 }, 600);
             };
 
-            // Cinematic Intro duration (8 seconds before auto-skip to let you see the property)
-            const timer = setTimeout(clearIntro, 8000);
+            // Professional delay for logo reveal
+            const timer = setTimeout(clearIntro, 4000);
 
             if (skip) skip.onclick = clearIntro;
         })();

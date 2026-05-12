@@ -15,52 +15,30 @@ document.addEventListener('DOMContentLoaded', () => {
 // INTRO SEQUENCE — Cinematic Video & Splash
 // ============================================================
 function initIntroSequence() {
-    const introOverlay = document.getElementById('intro-overlay');
     const splashScreen = document.getElementById('splash-screen');
-    const introVideo = document.getElementById('intro-video');
-    const skipBtn = document.getElementById('skip-intro');
     const startBtn = document.getElementById('start-presentation');
     const appContainer = document.getElementById('app');
-
-    const endIntro = () => {
-        if (!introOverlay || introOverlay.style.display === 'none') return;
-        introOverlay.classList.add('fade-out');
-        setTimeout(() => {
-            introOverlay.style.display = 'none';
-            if (splashScreen) splashScreen.classList.add('visible');
-        }, 800);
-    };
-
-    // Auto-timeout: If video hasn't played in 4 seconds, go to splash
-    const introTimeout = setTimeout(endIntro, 4000);
-
-    if (introVideo) {
-        introVideo.onplay = () => clearTimeout(introTimeout);
-        introVideo.onended = endIntro;
-        introVideo.onerror = endIntro;
-        // Attempt autoplay
-        introVideo.play().catch(endIntro);
-    }
-
-    if (skipBtn) {
-        skipBtn.onclick = endIntro;
-    }
 
     if (startBtn) {
         startBtn.onclick = () => {
             if (!splashScreen) return;
+            
+            // Premium fade out transition
             splashScreen.classList.add('fade-out');
+            
             setTimeout(() => {
                 splashScreen.style.display = 'none';
+                
                 if (appContainer) {
                     appContainer.classList.remove('presentation-hidden');
                     appContainer.classList.add('presentation-reveal');
                 }
-                // Small delay to ensure display:block is rendered before animation
+                
+                // Small delay to ensure the deck initializes visibility correctly
                 setTimeout(() => {
                     const firstSlide = document.querySelector('.full-page');
                     if (firstSlide) firstSlide.classList.add('visible');
-                }, 50);
+                }, 100);
             }, 1000);
         };
     }
