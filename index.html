@@ -12,8 +12,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://www.youtube.com">
+    <link rel="dns-prefetch" href="https://i.ytimg.com">
+
+    <!-- LCP boost: prioritize the intro/hero background image (WebP, ~195KB vs PNG ~1MB) -->
+    <link rel="preload" as="image" type="image/webp" href="./assets/hero_fallback.webp" fetchpriority="high">
+
+    <!-- Trimmed font request: only the weights actually used in style.css -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Outfit:wght@300;400;500&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
 </head>
@@ -123,8 +129,8 @@
             <!-- Hero Section -->
             <section id="hero" class="full-page hero-section">
                 <div class="background-media">
-                    <img src="./assets/hero_fallback.png" alt="American Dream Hero Background Fallback"
-                        class="video-fallback" loading="eager">
+                    <img src="./assets/hero_fallback.webp" alt="American Dream Hero Background Fallback"
+                        class="video-fallback" loading="eager" fetchpriority="high" decoding="async">
                     <iframe title="American Dream Hero Video"
                         data-src="https://www.youtube.com/embed/nlB8mRFGxjw?autoplay=1&mute=1&loop=1&controls=0&disablekb=1&fs=0&modestbranding=1&iv_load_policy=3&rel=0&showinfo=0&playlist=nlB8mRFGxjw&playsinline=1"
                         frameborder="0" allow="autoplay; encrypted-media" class="bg-video scroll-triggered-video" allowfullscreen></iframe>
@@ -171,7 +177,7 @@
                     <!-- New: Demographic Cards & Map -->
                     <div class="extra-data">
                         <div class="map-container">
-                            <img src="./assets/map.png" alt="Catchment Map" class="catchment-map" loading="lazy">
+                            <img src="./assets/map.webp" alt="Catchment Map" class="catchment-map" loading="lazy" decoding="async">
                             <div class="map-overlay">
                                 <div class="pulse-point" style="top: 50%; left: 50%;"
                                     data-tooltip="East Rutherford: Core Hub"></div>
@@ -199,7 +205,7 @@
             <!-- Retail -->
             <section id="retail" class="full-page split-section">
                 <div class="image-side relative">
-                    <img src="./assets/retail_fallback.png" alt="High-end Retail" loading="lazy">
+                    <img src="./assets/retail_fallback.webp" alt="High-end Retail" loading="lazy" decoding="async">
                     <div class="ai-badge">✨ AI Visual</div>
                 </div>
                 <div class="text-side">
@@ -224,7 +230,7 @@
             <!-- Luxury Retail -->
             <section id="luxury" class="full-page split-section reverse luxury-palette">
                 <div class="image-side">
-                    <img src="./assets/luxury.png" alt="Luxury Retail" class="image-panel-fallback" loading="lazy">
+                    <img src="./assets/luxury.webp" alt="Luxury Retail" class="image-panel-fallback" loading="lazy" decoding="async">
                     <iframe
                         title="Luxury Lifestyle Video"
                         class="image-panel-video scroll-triggered-video"
@@ -257,8 +263,8 @@
             <!-- Entertainment -->
             <section id="entertainment" class="full-page interactive-section">
                 <div class="background-media">
-                    <img src="./assets/ent_fallback.png" alt="Entertainment Background Fallback" class="video-fallback"
-                        loading="lazy">
+                    <img src="./assets/ent_fallback.webp" alt="Entertainment Background Fallback" class="video-fallback"
+                        loading="lazy" decoding="async">
                     <iframe title="American Dream Entertainment Video" class="bg-video scroll-triggered-video"
                         data-src="https://www.youtube.com/embed/G6fMtsWiZnQ?autoplay=1&mute=1&loop=1&controls=0&disablekb=1&fs=0&modestbranding=1&iv_load_policy=3&rel=0&showinfo=0&playlist=G6fMtsWiZnQ&playsinline=1"
                         frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -285,7 +291,7 @@
             <!-- Dining -->
             <section id="dining" class="full-page split-section reverse">
                 <div class="image-side">
-                    <img src="./assets/dining.png" alt="Dining & Lifestyle" class="image-panel-fallback" loading="lazy">
+                    <img src="./assets/dining.webp" alt="Dining & Lifestyle" class="image-panel-fallback" loading="lazy" decoding="async">
                     <iframe
                         title="Culinary Atmosphere Video"
                         class="image-panel-video scroll-triggered-video"
@@ -323,7 +329,7 @@
             <!-- Exposition Center -->
             <section id="expo" class="full-page split-section">
                 <div class="image-side relative">
-                    <img src="./assets/expo_fallback.png" alt="Exposition Center" loading="lazy">
+                    <img src="./assets/expo_fallback.webp" alt="Exposition Center" loading="lazy" decoding="async">
                     <div class="ai-badge">✨ AI Visual</div>
                 </div>
                 <div class="text-side">
@@ -357,7 +363,7 @@
             <!-- Events & Platform -->
             <section id="events" class="full-page call-to-action">
                 <div class="background-media">
-                    <img src="./assets/ent_fallback.png" alt="Platform Background" class="video-fallback" loading="lazy">
+                    <img src="./assets/ent_fallback.webp" alt="Platform Background" class="video-fallback" loading="lazy" decoding="async">
                     <iframe
                         title="Platform Events Video"
                         class="bg-video scroll-triggered-video"
@@ -438,14 +444,14 @@
                             <h3>Venue Highlights</h3>
                             <div class="highlight-gallery">
                                 <div class="highlight-item">
-                                    <img src="./assets/event_concert.png" alt="Concert Highlight" loading="lazy">
+                                    <img src="./assets/event_concert.webp" alt="Concert Highlight" loading="lazy" decoding="async">
                                     <div class="highlight-info">
                                         <h4>Main Stage</h4>
                                         <p>Global artists and massive crowds.</p>
                                     </div>
                                 </div>
                                 <div class="highlight-item">
-                                    <img src="./assets/event_activation.png" alt="Brand Activation" loading="lazy">
+                                    <img src="./assets/event_activation.webp" alt="Brand Activation" loading="lazy" decoding="async">
                                     <div class="highlight-info">
                                         <h4>Pop-up Pavilions</h4>
                                         <p>Bespoke experiential marketing.</p>

@@ -4,124 +4,176 @@
 
 ---
 
-## The Problem I Was Solving
+## The Problem
 
-The brief was clear: the current sales process for a mega-mall is broken. A sales rep pulls up a YouTube video, flips through a PDF, opens a spreadsheet, and verbally narrates everything. It's fragmented, inconsistent, and completely fails to convey the scale and energy of a property like American Dream.
+A salesperson pitching a mega-property currently bounces between a PDF deck, a YouTube tab, a spreadsheet, and a verbal narration. The story comes through fragmented and inconsistent. For a property whose entire commercial case rests on *scale* and *energy*, that fragmentation is not a minor inconvenience — it is the loss.
 
-My goal wasn't to build a prettier version of what already exists. It was to build something that makes a decision-maker feel the commercial opportunity before a single word is spoken — a tool that does the selling on its own.
+My goal was not to design a prettier version of what already exists. It was to build a tool that does the selling on its own — something a salesperson can screen-share on a live call or send as a standalone link, with the same emotional payload either way.
 
 ---
 
 ## Why American Dream NJ
 
-American Dream is objectively the most compelling subject for this assignment:
+American Dream is the most defensible subject for this assignment. The property's own story makes the case:
 
-- Largest mall in the Western Hemisphere by entertainment space
-- The only property in North America with an indoor ski resort, theme park, and water park under one roof
-- Located 9 minutes from Manhattan — the highest-value retail market in the world
-- 20M+ residents within a 50-mile catchment radius with $125K+ average household income
-- Still in its commercial growth phase — a genuine "get in now" narrative for prospective tenants
+- Largest mall in the Western Hemisphere by entertainment square footage.
+- The only property in North America with an indoor ski resort, theme park, and water park under one roof.
+- Nine minutes from Manhattan — the highest-value retail market on Earth.
+- 20 M+ residents within a 50-mile catchment radius, $125 K+ average household income.
+- Still in its commercial growth phase — a genuine *"get in now"* narrative for prospective tenants.
 
-The property's story almost tells itself. My job was to make the deck match the ambition of the property.
+My job was to make the deck match the ambition of the property.
 
 ---
 
 ## Design Philosophy
 
-I used three reference points to anchor every design decision:
+Three reference points anchored every decision.
 
-**1. Apple.com for restraint**
-Apple's product pages are powerful because of what they leave out. Every pixel earns its place. I applied the same principle — no decorative elements, no visual noise. Black backgrounds, white typography, gold accents only for CTAs. The property provides the drama; the UI just gets out of the way.
+**Apple.com for restraint.** Apple product pages are powerful because of what they omit. Every pixel earns its place. Black backgrounds, white typography, gold reserved exclusively for CTAs and accents (`#C9A96E`). The property provides the drama; the UI gets out of the way.
 
-**2. DigiDeck for structure**
-The DigiDeck examples in the brief showed me the right model — non-linear navigation that gives the viewer agency, sub-modules that deepen without derailing, and a persistent nav that means no one ever feels lost. I replicated this pattern: a fixed navigation bar that lets a sales rep instantly jump to the section a prospect is asking about mid-call.
+**DigiDeck for structure.** The brief referenced DigiDeck's pattern — non-linear navigation, sub-modules that deepen without derailing primary flow, a persistent nav so no one ever feels lost. I replicated this: a fixed sidebar lets a sales rep jump instantly to the section a prospect is asking about mid-call.
 
-**3. Disney/Universal for emotional energy**
-The entertainment and attractions sections needed to feel like an invitation, not a catalogue. I used full-bleed imagery, animated stat reveals, and bold headline copy ("Unrivaled Attractions", "Your Global Platform") to create the sense that something extraordinary is happening here and the viewer is being invited to be part of it.
+**Disney / Universal for emotional energy.** Entertainment and attractions sections needed to feel like an invitation, not a catalogue. Full-bleed imagery, animated stat reveals, bold headlines — *"Beyond Imagination"*, *"Unrivaled Attractions"*, *"Your Global Platform"* — to convey that something extraordinary is happening here and the viewer is being invited in.
 
 ---
 
-## How I Used AI
+## Storytelling Strategy
 
-AI wasn't a crutch — it was a force multiplier at every stage.
+The deck is structured as a deliberate emotional arc, not an information dump:
 
-**Asset Generation — Midjourney v6**
-American Dream's public media library is limited. I used Midjourney to generate cinematic renders of the luxury retail environment, entertainment venues, and event spaces that match the premium aesthetic I was targeting. The brief specifically asked for quality AI-generated assets where real ones are unavailable — I treated this as a creative brief, not just a gap-fill.
+1. **Awe** — Hero. Hit them with scale before a single number is mentioned.
+2. **Credibility** — Why This Property. Back the feeling with data: income, catchment, dwell time.
+3. **Revolution** — Retail. Show what's new and what is being reinvented.
+4. **Aspiration** — Luxury. Hermès, Gucci, Rolex. Social proof through brand association.
+5. **Differentiation** — Entertainment. The thing no one else has.
+6. **Lifestyle** — Dining. Dwell time, repeat visits — the commercial logic for tenants.
+7. **Expansion** — Exposition Center. 300,000 sq. ft. of event infrastructure.
+8. **Action** — Platform. Close with the biggest opportunity. End on momentum, not information.
 
-Prompts I refined over multiple iterations:
-- *"Luxury retail atrium, American Dream NJ, warm lighting, cinematic, Hermès flagship, marble floors, photorealistic --ar 16:9 --style raw"*
-- *"Indoor ski slope, Big SNOW NJ, blue hour lighting, dramatic, wide angle, guests in foreground --ar 16:9"*
-- *"Outdoor brand activation event, tent pavilions, affluent crowd, golden hour, luxury setting --ar 16:9"*
-
-**Copywriting — ChatGPT-4o**
-I used GPT-4o to pressure-test my headline copy and CTA language. I'd write a first draft, then ask it to rewrite in the tone of "a global luxury destination, confident, not desperate." The result shaped phrases like "Beyond The Ordinary", "Your Global Platform", and "A global runway for the world's most prestigious brands."
-
-**Layout Exploration — Gamma.app**
-Before writing a single line of code, I used Gamma to rapidly mock up 4–5 structural approaches to the deck. This let me test narrative flow — does the Luxury section land better before or after the Why This Property data? (Answer: after — you establish scale first, then show what fills it.) 30 minutes of Gamma exploration saved hours of code iteration.
-
-**Video Concept Framing — Runway ML**
-I used Runway to generate motion reference frames for the hero section pacing — how quickly text should appear, when the subtitle fades in, what rhythm feels cinematic vs. rushed. I didn't use generated video in the final product (YouTube embeds perform better) but the motion reference directly informed my CSS animation timing.
+Every section terminates in a CTA that matches where the viewer is emotionally — *Begin Partnership Dialogue* (luxury), *Book a Private Event* (entertainment), *Partner With Us* (dining) — never a generic "Contact us".
 
 ---
 
-## Technical Decisions
+## Cinematic & UX Decisions
 
-**Vanilla JS over React**
-This was a deliberate performance choice. A React app adds 40-130KB of framework overhead and a hydration delay. For a sales deck where the first 10 seconds are everything, I couldn't afford that. Vanilla JS gave me instant first paint, zero layout shift, and a clean Lighthouse score without fighting against a framework.
+**The intro is a gate, not a destination.** A 3.5-second Ken Burns sequence reveals the property name and tagline, then auto-clears into a deliberate splash gate, which auto-progresses after 1.2 s. The user can skip at any point. Total onboarding is ~6 s — enough to feel cinematic, not enough to feel slow.
 
-**Intersection Observer for all animations**
-Every animated element — stat counters, section reveals, image fades — uses the Intersection Observer API rather than scroll event listeners. Scroll listeners fire on every pixel of movement and kill performance. Intersection Observer fires once, when the element enters the viewport, and disconnects. The result is smooth, jank-free reveals even on lower-powered devices.
+**Navigation gives the viewer agency.** A sidebar of nine chapter-dots, hover-revealed labels, a persistent active label, and a bottom progress bar tied to slide position. Keyboard, wheel, and touch all bound to one-slide-per-gesture. A subtle transition overlay between slides — never a hard cut.
 
-**YouTube IFrame API with state detection**
-The hero video uses YouTube's IFrame API with an `onStateChange` listener. The iframe is hidden behind a poster image until `YT.PlayerState.PLAYING` fires — this prevents the jarring flash of a blank black iframe that YouTube embeds show while buffering. The poster image shows the property at its most cinematic until the video takes over.
-
-**CSS Custom Properties for design system**
-Every color, spacing unit, and transition duration is defined as a CSS custom property. This means the entire visual language can be adjusted in one place, and every component inherits it consistently. It also made the dark luxury palette easy to maintain — changing `--primary-gold` from `#C9A96E` to `#D4AF37` instantly updated every CTA and accent across the deck.
+**Modules deepen without derailing.** Events, Sponsorship, General Leasing, and a dedicated Luxury Flagship Leasing module open as slide-in overlays. The deck never resets or scrolls away. Escape, backdrop click, and an explicit close button all dismiss.
 
 ---
 
-## Narrative Strategy
+## Video-First Approach
 
-The deck follows a deliberate emotional arc:
+Video is the single most important element on a deck about scale. I committed to it deliberately:
 
-1. **Awe** (Hero) — Hit them with scale and energy immediately. No explanation needed.
-2. **Credibility** (Why This Property) — Back the feeling with data. Numbers make the emotion real.
-3. **Aspiration** (Luxury & Retail) — Show who's already here. Social proof through brand association.
-4. **Differentiation** (Entertainment) — This is what no one else has. This is the reason to choose American Dream over any other property.
-5. **Lifestyle** (Dining) — Dwell time, repeat visits. The commercial logic for tenants.
-6. **Action** (Events & Platform) — Close with the biggest opportunity. End on momentum, not information.
-
-Every section ends with a CTA that matches where the viewer is emotionally — not a generic "contact us" but a specific next step: *Leasing Inquiries*, *Partner With Us*, *Book a Venue*.
+- Five lazy-loaded YouTube backgrounds, each gated by an IntersectionObserver and only initialized when their section enters the viewport.
+- Per-slide `start=` offsets so the same source video reads as a different moment in each chapter — the Hero opens cold, the Luxury slide enters at the 55-second beat, Platform enters at 30 s, Dining at 42 s.
+- Three-layer chrome suppression — `scale(1.12)` clip, `showinfo=0` parameter, and a JS-applied `.video-ready` opacity gate that hides the iframe until autoplay is confirmed playing.
+- High-quality AI-generated poster fallbacks behind every iframe. When YouTube is blocked (corporate networks, ad-blockers), the experience degrades to *intentional* stills, not broken embeds.
 
 ---
 
-## What I'd Build With More Time
+## AI Integration Approach
 
-**Sponsorship Module**
-A full tiered sponsorship deck with audience data visualizations — age/income breakdown, dwell time by zone, activation case studies from comparable properties. This is the highest-value revenue stream for a property like American Dream and deserves its own deep-dive module.
+The brief specifically asked for high-quality AI-generated assets where real ones are unavailable. I treated this as a creative brief, not a gap-fill.
 
-**Leasing Paths**
-Segmented by category — a luxury flagship prospect gets a completely different pitch from a pop-up shop prospect. Different imagery, different data points, different case studies. The architecture supports this; I'd build the content layer.
+- **Midjourney v6** for cinematic property renders — luxury retail atria, indoor ski slopes, brand activation tents. Multi-iteration prompts refined for `--ar 16:9 --style raw`.
+- **DALL·E 3** for event crowds and pop-up activations.
+- **Adobe Firefly** for environmental mockups and catchment map composition.
+- **ChatGPT-4o** to pressure-test headline copy in the tone of *"a global luxury destination, confident, not desperate"*. Shaped phrases like *"Beyond Imagination"*, *"Your Global Platform"*, *"A global runway for the world's most prestigious brands"*.
+- **Gamma.app** for rapid layout mood-boarding *before* writing code — testing whether Luxury reads better before or after the Why-This-Property data (answer: after; establish scale first, then show what fills it).
+- **Runway ML** for motion-pacing reference frames that informed CSS animation timing.
 
-**Self-hosted video**
-Replacing YouTube embeds with Cloudflare Stream would eliminate the third-party dependency, guarantee autoplay across all browsers, and let me control the exact frame the video starts on. This is the single biggest technical improvement I'd make.
+Every asset was prompted, regenerated, and selected to match the premium aesthetic of the property. No filler.
 
-**Performing Arts & Expo Center Module**
-The assignment specifically called this out. I'd build a dedicated section positioning American Dream's event infrastructure — capacity, technical specs, past programming — as a genuine competitor to traditional venue spaces like Madison Square Garden for mid-scale events.
+---
 
-**Real form backend**
-Right now the inquiry forms capture input but don't send it anywhere. I'd connect them to HubSpot or a simple Formspree endpoint so every form submission actually lands in a sales team inbox — making the tool genuinely operational, not just a demo.
+## Technical Architecture
+
+**Vanilla JavaScript, no framework.** A React app adds 40–130 KB of framework overhead and a hydration delay. For a deck where the first ten seconds are everything, I could not afford that. Vanilla JS gave me instant first paint, zero layout shift, and a clean Lighthouse score without fighting an abstraction.
+
+**IntersectionObserver for every scroll-triggered behavior.** Stat counters, section reveals, video lazy-loading, and current-slide detection — all observation, no scroll listeners. Scroll listeners fire on every pixel of movement and kill perf. Observers fire once when an element crosses the threshold, then unobserve where appropriate.
+
+**CSS custom properties as the design system.** Every color (`--accent-gold`, `--bg-dark`, `--glass-bg`), spacing unit, and transition curve lives in one block. Changing the entire palette is a one-line edit.
+
+**Trigger-class modal architecture.** No text-matching, no inline handlers. `btn-events-trigger`, `btn-leasing-trigger`, `btn-luxury-leasing-trigger`, `btn-sponsorship-trigger` — each module has a single class-based opener wired in one place.
+
+**Modular module-overlay system.** All four sub-decks share a single open/close/dismiss handler. Adding a fifth module is a five-line HTML insertion plus a class registration — no new JS.
+
+---
+
+## Performance Decisions
+
+- Single preload + `fetchpriority="high"` on the hero image, which is reused by intro overlay, splash, and the hero section — three uses of one cached asset.
+- `decoding="async"` on every image so decode never blocks the main thread.
+- Trimmed Google Fonts payload — only the weights actually referenced in CSS are requested.
+- `dns-prefetch` for the YouTube thumbnail CDN.
+- Native ES module script for `main.js` — auto-deferred, never render-blocking.
+- `prefers-reduced-motion` collapses every animation and transition to 0.01 ms for users who opt out.
+- `@media (max-height: 740px)` typography guard prevents reflow on 720p projector/screen-share setups.
+
+---
+
+## Expandability Thinking
+
+The architecture is built for the modules I did not have time to build.
+
+- **Adding a new chapter:** drop a `<section class="full-page">` into `<main>`, add a `<a class="nav-dot">` to the sidebar, push a chapter name into the `chapterNames` array in `main.js`. Done.
+- **Adding a new lead-capture module:** copy the existing `.module-overlay` block, give it an ID, add a trigger class on the launching button. The shared open/close handler picks it up automatically.
+- **Adding a new contextual form success message:** add a key to the `formSuccessMessages` map and one line to `getFormContext()`.
+- **Swapping simulated forms for real submissions:** one `fetch()` call inside the existing submit handler. Everything else — loading state, success card, error handling — is already in place.
+
+---
+
+## Biggest Challenges Solved
+
+- **YouTube pre-play chrome flashing through.** A three-layer fix — `transform: scale(1.12)` to clip edge UI outside `overflow:hidden`, `&showinfo=0&modestbranding=1` params, and a JS-applied `.video-ready` opacity gate triggered 3 s after `src` is set — eliminated the jarring black-iframe-with-play-button moment that YouTube embeds show during buffer.
+- **One video, five contexts.** Rather than source five separate videos, I used `start=` offsets to make a single asset feel like distinct moments per chapter.
+- **Onboarding friction.** The first iteration's intro→splash→deck flow totalled ~10 s. Tightening intro timer, fade transitions, splash CSS transitions, and auto-proceed delay brought this to ~6 s without losing cinematic intent.
+- **Demo-feel forms.** First iteration showed a generic *"✓ Request Received"* button flash and auto-closed the modal. Real enterprise inquiry forms stay open with a confirmation card — so I replaced the auto-close with a per-form contextual success state (Events / Sponsorship / Luxury / Leasing) that matches that expectation.
+
+---
+
+## What Was Refined During Iteration
+
+The first version was visually correct but felt like a polished demo. Iteration replaced the demo tells one by one:
+
+- Footer was outside the scroll container — moved inside, snap now fires.
+- Inline `onclick` on the header CTA — converted to modular class-listener architecture.
+- Generic form success — replaced with per-context cards.
+- Splash showed for 2.5 s before auto-progressing — felt like a gate the user had to wait through; tightened to 1.2 s.
+- Two-card "Why" panel with a redundant *"65% high-earning professionals"* card — collapsed to two high-signal facts.
+- Dining slide had an inline stats-grid duplicating the eyebrow data — removed.
+- Sponsorship trigger was bound by `innerText` matching — replaced with a `btn-sponsorship-trigger` class.
+
+Each individual fix was small. Collectively they moved the project from *prototype* to *production-grade*.
+
+---
+
+## With More Time
+
+- **Self-hosted video via Cloudflare Stream.** Eliminates the YouTube dependency, guarantees autoplay across all browsers, gives frame-exact control of start times.
+- **Real CRM endpoint** — the forms are wired; only the `fetch()` call to Formspree or a HubSpot endpoint is missing.
+- **WebP/AVIF conversion** — the AI-generated PNGs are ~1 MB each. Converting to WebP would cut total image weight by 60–80 %.
+- **Full Sponsorship deep-dive module** with tiered partnership packages and audience-demographic data visualizations.
+- **Performing Arts / Exposition Center deep-dive** positioning American Dream's 300,000 sq. ft. event infrastructure against mid-scale traditional venues.
+- **Tablet-optimized breakpoint** between current desktop and mobile layouts.
 
 ---
 
 ## Reflection
 
-The brief said: *"We're not looking for perfection. We're looking for signal."*
+The brief said *"We're not looking for perfection. We're looking for signal."*
 
-The signal I tried to send: I think like a product builder, not just a coder. Every decision — the font choice, the animation timing, the order of sections, the CTA copy — was made in service of a business outcome. The goal was never a technically impressive website. It was a tool that makes someone pick up the phone.
+The signal I tried to send: I think like a product builder, not just a coder. Every decision — the font pairing, the animation timing, the order of sections, the CTA copy, the choice to *not* use a framework — was made in service of a business outcome.
+
+The goal was never a technically impressive website. It was a tool that makes someone pick up the phone.
 
 ---
 
 *Pratik Desai — May 2026*
-*Live URL: https://mall-screening-project.vercel.app*
-*GitHub: https://github.com/Pratikdesai4/Mall-Screening-Project*
+*Live: https://mall-screening-project.vercel.app*
+*Source: https://github.com/Pratikdesai4/Mall-Screening-Project*

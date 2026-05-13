@@ -260,7 +260,25 @@ function initDeck() {
     if (prevBtn) prevBtn.onclick = () => goToSlide(currentIndex - 1, false);
     if (nextBtn) nextBtn.onclick = () => goToSlide(currentIndex + 1, false);
 
-    document.querySelectorAll('.scroll-triggered-video').forEach(v => videoObserver.observe(v));
+    // Defer iframe observation until after first paint + main thread is idle.
+    // Without this, YouTube's embed script (~500KB) executes during the intro and
+    // crushes Lighthouse TBT/LCP. The intro covers the hero for ~3.5s, so the
+    // user-perceived video start is unchanged.
+    const startVideoObservation = () => {
+        document.querySelectorAll('.scroll-triggered-video').forEach(v => videoObserver.observe(v));
+    };
+    const kickoffVideos = () => {
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(startVideoObservation, { timeout: 3500 });
+        } else {
+            setTimeout(startVideoObservation, 2500);
+        }
+    };
+    if (document.readyState === 'complete') {
+        kickoffVideos();
+    } else {
+        window.addEventListener('load', kickoffVideos, { once: true });
+    }
 
     // Initialize
     updateDots(0);
