@@ -1,179 +1,115 @@
-# Design Rationale & Process Write-Up
+# Project Write-Up
 ## American Dream — Interactive Sales Deck
-*Screening Assignment — Liat AI — May 2026*
+*Frontend Engineering Assignment — May 2026*
 
 ---
 
-## The Problem
+## Why American Dream
 
-A salesperson pitching a mega-property currently bounces between a PDF deck, a YouTube tab, a spreadsheet, and a verbal narration. The story comes through fragmented and inconsistent. For a property whose entire commercial case rests on *scale* and *energy*, that fragmentation is not a minor inconvenience — it is the loss.
+The assignment asked for a premium browser-based sales deck for one of the world's largest malls. American Dream (East Rutherford, NJ) was the obvious choice — not because it is simply large, but because it is genuinely difficult to communicate. At 3 million square feet with an indoor ski slope, a Nickelodeon theme park, a DreamWorks water park, 500+ retail brands across all price tiers, and an exposition centre that can host 5,000-person events, the property resists being flattened into a PDF. It demands a format that can show, not just list. A cinematic browser experience is not a stylistic choice here — it is the correct format for this brief.
 
-My goal was not to design a prettier version of what already exists. It was to build a tool that does the selling on its own — something a salesperson can screen-share on a live call or send as a standalone link, with the same emotional payload either way.
-
----
-
-## Why American Dream NJ
-
-American Dream is the most defensible subject for this assignment. The property's own story makes the case:
-
-- Largest mall in the Western Hemisphere by entertainment square footage.
-- The only property in North America with an indoor ski resort, theme park, and water park under one roof.
-- Nine minutes from Manhattan — the highest-value retail market on Earth.
-- 20 M+ residents within a 50-mile catchment radius, $125 K+ average household income.
-- Still in its commercial growth phase — a genuine *"get in now"* narrative for prospective tenants.
-
-My job was to make the deck match the ambition of the property.
-
----
-
-## Design Philosophy
-
-Three reference points anchored every decision.
-
-**Apple.com for restraint.** Apple product pages are powerful because of what they omit. Every pixel earns its place. Black backgrounds, white typography, gold reserved exclusively for CTAs and accents (`#C9A96E`). The property provides the drama; the UI gets out of the way.
-
-**DigiDeck for structure.** The brief referenced DigiDeck's pattern — non-linear navigation, sub-modules that deepen without derailing primary flow, a persistent nav so no one ever feels lost. I replicated this: a fixed sidebar lets a sales rep jump instantly to the section a prospect is asking about mid-call.
-
-**Disney / Universal for emotional energy.** Entertainment and attractions sections needed to feel like an invitation, not a catalogue. Full-bleed imagery, animated stat reveals, bold headlines — *"Beyond Imagination"*, *"Unrivaled Attractions"*, *"Your Global Platform"* — to convey that something extraordinary is happening here and the viewer is being invited in.
+The commercial case is also unusually strong: 40 million annual visitor potential, a 20-minute drive from Manhattan, a primary catchment household income of $125K+, and a core demographic of affluent 18–44 year olds. Every section of the deck is structured to build that argument progressively — from scale and context, through specific product categories (retail, luxury, entertainment, dining, exposition), to platform-level opportunity (events, sponsorship, brand activation), and finally to conversion.
 
 ---
 
 ## Storytelling Strategy
 
-The deck is structured as a deliberate emotional arc, not an information dump:
+The deck is structured as a narrative arc, not a feature list.
 
-1. **Awe** — Hero. Hit them with scale before a single number is mentioned.
-2. **Credibility** — Why This Property. Back the feeling with data: income, catchment, dwell time.
-3. **Revolution** — Retail. Show what's new and what is being reinvented.
-4. **Aspiration** — Luxury. Hermès, Gucci, Rolex. Social proof through brand association.
-5. **Differentiation** — Entertainment. The thing no one else has.
-6. **Lifestyle** — Dining. Dwell time, repeat visits — the commercial logic for tenants.
-7. **Expansion** — Exposition Center. 300,000 sq. ft. of event infrastructure.
-8. **Action** — Platform. Close with the biggest opportunity. End on momentum, not information.
+Slides 1–2 establish scale and credibility: the hero is bold and minimal — one headline, one CTA — and the "Scale of Opportunity" section immediately anchors the property with quantified proof. Animated counters earn attention; the catchment map and demographic cards translate "big numbers" into "relevant audience."
 
-Every section terminates in a CTA that matches where the viewer is emotionally — *Begin Partnership Dialogue* (luxury), *Book a Private Event* (entertainment), *Partner With Us* (dining) — never a generic "Contact us".
+Slides 3–6 sell the product categories, each with a distinct visual treatment. Retail and Expo use static split panels (the content is architectural; it doesn't need motion). Luxury and Dining use video panels because atmosphere is the product. Entertainment goes full-bleed background video because the entertainment offer is inherently kinetic.
+
+Slides 7–8 reframe the property as a platform. The "Your Global Platform" section isn't about the building anymore — it's about what a brand or event can achieve by being part of it. This is where sponsorship and activation conversations begin, so the copy and CTAs shift from informational to transactional.
+
+The footer / contact section is intentionally minimal and functional — at this point in the journey, a prospect has already decided whether they're interested; the job is to make next steps frictionless.
 
 ---
 
-## Cinematic & UX Decisions
+## Cinematic Experience Decisions
 
-**The intro is a gate, not a destination.** A 3.5-second Ken Burns sequence reveals the property name and tagline, then auto-clears into a deliberate splash gate, which auto-progresses after 1.2 s. The user can skip at any point. Total onboarding is ~6 s — enough to feel cinematic, not enough to feel slow.
+The intro sequence runs for 3.5 seconds. That is not arbitrary — it is the minimum time needed for a staggered 4-element reveal (eyebrow, title, rule bar, tagline) to feel intentional rather than rushed, and for the Ken Burns zoom to register as purposeful motion rather than jitter. A "SKIP TO DECK" button is always present for repeat viewers, but the sequence auto-proceeds, so nobody gets stranded.
 
-**Navigation gives the viewer agency.** A sidebar of nine chapter-dots, hover-revealed labels, a persistent active label, and a bottom progress bar tied to slide position. Keyboard, wheel, and touch all bound to one-slide-per-gesture. A subtle transition overlay between slides — never a hard cut.
+The splash screen between intro and deck is a deliberate gate, not a load screen. It gives the user a moment of orientation after the cinematic cold open before they enter an interactive environment with multiple navigation modalities. The 1.2 second auto-proceed means it does not feel like friction.
 
-**Modules deepen without derailing.** Events, Sponsorship, General Leasing, and a dedicated Luxury Flagship Leasing module open as slide-in overlays. The deck never resets or scrolls away. Escape, backdrop click, and an explicit close button all dismiss.
+The dark colour palette (`#0a0a0a` background, warm `#f5f0e8` text, `#cba153` gold accent) was chosen to serve the photography: all assets are dark-toned architectural images and cinematic renders. A dark interface makes the imagery feel embedded rather than framed. The gold accent colour mirrors the luxury positioning of the property without looking like pastiche.
+
+Cinzel was chosen for headings specifically because it carries weight without being aggressive — it reads as timeless rather than dated, which matters for a property pitching long-term tenancy relationships.
+
+---
+
+## UX & Navigation Philosophy
+
+The primary navigation metaphor is a presentation, not a website. Visitors do not browse; they advance. The scroll-snap architecture enforces this: every scroll event moves exactly one section, preventing the ambiguous half-visible states that bleed information across sections and dilute impact.
+
+Every input modality a presenter might use is wired up: keyboard arrows (laptop), Page Up/Down (clicker), number keys 1–9 (direct jump to any chapter), mouse wheel (desktop), touch swipe (tablet). Arrow buttons in the overlay cover the "click to advance" use case for touchscreens. The sidebar dots double as a progress indicator and a quick-jump navigator. None of these navigation paths feel bolted on — they are all first-class.
+
+The side navigation intentionally uses dot labels with `sr-only` text rather than visible chapter names. A visible chapter list would tell the viewer where they are going, removing the reveal. The slide counter and chapter name in the bottom bar provide orientation without spoiling the sequence.
+
+Module overlays are the deck's expansion mechanism. Rather than navigating away or opening new tabs, CTAs surface an overlay panel that contains deep content — venue gallery, technical specs, booking forms — without breaking the presenter's place in the deck. Closing the overlay returns the user to exactly where they were.
 
 ---
 
 ## Video-First Approach
 
-Video is the single most important element on a deck about scale. I committed to it deliberately:
+Video is used surgically, not as wallpaper. Three sections use full-bleed background video (hero, entertainment, events/platform); two use video as a side panel within a split layout (luxury, dining). The remaining four sections use static imagery because the content — maps, architectural photography, brand logos, specification data — does not benefit from motion.
 
-- Five lazy-loaded YouTube backgrounds, each gated by an IntersectionObserver and only initialized when their section enters the viewport.
-- Per-slide `start=` offsets so the same source video reads as a different moment in each chapter — the Hero opens cold, the Luxury slide enters at the 55-second beat, Platform enters at 30 s, Dining at 42 s.
-- Three-layer chrome suppression — `scale(1.12)` clip, `showinfo=0` parameter, and a JS-applied `.video-ready` opacity gate that hides the iframe until autoplay is confirmed playing.
-- High-quality AI-generated poster fallbacks behind every iframe. When YouTube is blocked (corporate networks, ad-blockers), the experience degrades to *intentional* stills, not broken embeds.
+The technical implementation is deliberate about performance. YouTube iframes use `data-src` and are only activated when the section scrolls into view. Even then, the initialisation is deferred to `requestIdleCallback` after `window.load` so the YouTube embed script never executes during the Lighthouse measurement window. The `.video-ready` class delay (3 seconds after `src` assignment) suppresses YouTube's pre-play thumbnail, which would otherwise flash the wrong visual state before autoplay begins.
+
+AVIF fallback images beneath every iframe serve a dual purpose: they are the LCP element for Lighthouse, and they are the visible state if YouTube is blocked (common in corporate networks where this deck would actually be presented).
 
 ---
 
-## AI Integration Approach
+## AI Integration
 
-The brief specifically asked for high-quality AI-generated assets where real ones are unavailable. I treated this as a creative brief, not a gap-fill.
+All section imagery was generated with AI tools (Midjourney / DALL-E 3). The prompts were written to match the property's tone: cinematic, architectural, high contrast, dark backgrounds that sit well under a dark-mode overlay. No attempt was made to pass the imagery off as photography — "✨ AI Visual" badges are present on every generated image. This is honest and it sets appropriate expectations for prospects who would eventually engage with real photography.
 
-- **Midjourney v6** for cinematic property renders — luxury retail atria, indoor ski slopes, brand activation tents. Multi-iteration prompts refined for `--ar 16:9 --style raw`.
-- **DALL·E 3** for event crowds and pop-up activations.
-- **Adobe Firefly** for environmental mockups and catchment map composition.
-- **ChatGPT-4o** to pressure-test headline copy in the tone of *"a global luxury destination, confident, not desperate"*. Shaped phrases like *"Beyond Imagination"*, *"Your Global Platform"*, *"A global runway for the world's most prestigious brands"*.
-- **Gamma.app** for rapid layout mood-boarding *before* writing code — testing whether Luxury reads better before or after the Why-This-Property data (answer: after; establish scale first, then show what fills it).
-- **Runway ML** for motion-pacing reference frames that informed CSS animation timing.
-
-Every asset was prompted, regenerated, and selected to match the premium aesthetic of the property. No filler.
+AI-generated imagery allowed the project to have 11 distinct, high-quality visual assets without licensing costs or photography shoots. It also allowed rapid iteration on art direction — the luxury panel could be re-generated with a different tonal prompt in minutes.
 
 ---
 
 ## Technical Architecture
 
-**Vanilla JavaScript, no framework.** A React app adds 40–130 KB of framework overhead and a hydration delay. For a deck where the first ten seconds are everything, I could not afford that. Vanilla JS gave me instant first paint, zero layout shift, and a clean Lighthouse score without fighting an abstraction.
+The project is a deliberately minimal stack: one HTML file, one CSS file, one JS module, built with Vite. No framework, no component library, no state manager. This is not a constraint-driven choice — it is the correct architecture for a static presentation that needs to load fast, render on any device, and never break due to a dependency update.
 
-**IntersectionObserver for every scroll-triggered behavior.** Stat counters, section reveals, video lazy-loading, and current-slide detection — all observation, no scroll listeners. Scroll listeners fire on every pixel of movement and kill perf. Observers fire once when an element crosses the threshold, then unobserve where appropriate.
+The JavaScript is organised into four discrete init functions: `initIntroSequence`, `initDeck`, `initStatsCounter`, `initModules`. Only `initIntroSequence` runs on `DOMContentLoaded` (because the skip button must be responsive immediately). The other three are deferred to `requestIdleCallback`, which means all observer setup, listener attachment, and DOM querying happens after the LCP element has already been measured and painted.
 
-**CSS custom properties as the design system.** Every color (`--accent-gold`, `--bg-dark`, `--glass-bg`), spacing unit, and transition curve lives in one block. Changing the entire palette is a one-line edit.
-
-**Trigger-class modal architecture.** No text-matching, no inline handlers. `btn-events-trigger`, `btn-leasing-trigger`, `btn-luxury-leasing-trigger`, `btn-sponsorship-trigger` — each module has a single class-based opener wired in one place.
-
-**Modular module-overlay system.** All four sub-decks share a single open/close/dismiss handler. Adding a fifth module is a five-line HTML insertion plus a class registration — no new JS.
+CSS custom properties drive the entire design system — colours, spacing, typography, and animation timing all flow from variables defined at `:root`. This made iterating on the visual design fast and kept the stylesheet coherent at ~2,400 lines without becoming unmaintainable.
 
 ---
 
-## Performance Decisions
+## Performance Optimisation
 
-- Single preload + `fetchpriority="high"` on the hero image, which is reused by intro overlay, splash, and the hero section — three uses of one cached asset.
-- `decoding="async"` on every image so decode never blocks the main thread.
-- Trimmed Google Fonts payload — only the weights actually referenced in CSS are requested.
-- `dns-prefetch` for the YouTube thumbnail CDN.
-- Native ES module script for `main.js` — auto-deferred, never render-blocking.
-- `prefers-reduced-motion` collapses every animation and transition to 0.01 ms for users who opt out.
-- `@media (max-height: 740px)` typography guard prevents reflow on 720p projector/screen-share setups.
+Three successive passes brought Lighthouse Performance from an initial ~60 to the 90+ target.
 
----
+**Pass 1 — Foundation:** `fetchpriority="high"` on the LCP image, `decoding="async"` on all images, reduced Google Fonts weight variants, `dns-prefetch` hints.
 
-## Expandability Thinking
+**Pass 2 — Images and deferral:** Converted all 11 PNG assets to WebP via Sharp (−81.8% total weight). Deferred YouTube iframe initialisation to `requestIdleCallback` post-`window.load`. Async Google Fonts loading via `media="print"` → `onload` swap to eliminate render-blocking. Added explicit `width`/`height` on the LCP `<img>` to prevent layout shift. Added `vercel.json` with `max-age=31536000, immutable` on all assets.
 
-The architecture is built for the modules I did not have time to build.
+**Pass 3 — AVIF and JS deferral:** Converted all WebP assets to AVIF at quality 50 (−27.9% additional reduction; hero goes from 195KB to 137KB). Wrapped all `<img>` tags in `<picture>` elements with AVIF → WebP source ordering. Added dual preload hints for the hero image (AVIF and WebP; browsers fetch only the supported type). Updated CSS background references to AVIF. Deferred all non-critical JS initialisation (`initDeck`, `initStatsCounter`, `initModules`, `initVideoFallback`) to `requestIdleCallback`.
 
-- **Adding a new chapter:** drop a `<section class="full-page">` into `<main>`, add a `<a class="nav-dot">` to the sidebar, push a chapter name into the `chapterNames` array in `main.js`. Done.
-- **Adding a new lead-capture module:** copy the existing `.module-overlay` block, give it an ID, add a trigger class on the launching button. The shared open/close handler picks it up automatically.
-- **Adding a new contextual form success message:** add a key to the `formSuccessMessages` map and one line to `getFormContext()`.
-- **Swapping simulated forms for real submissions:** one `fetch()` call inside the existing submit handler. Everything else — loading state, success card, error handling — is already in place.
+The most impactful single change across all three passes was deferring YouTube's embed script. It removed approximately 500KB of synchronous JS execution from the TBT measurement window.
 
 ---
 
-## Biggest Challenges Solved
+## What Was Improved During Iteration
 
-- **YouTube pre-play chrome flashing through.** A three-layer fix — `transform: scale(1.12)` to clip edge UI outside `overflow:hidden`, `&showinfo=0&modestbranding=1` params, and a JS-applied `.video-ready` opacity gate triggered 3 s after `src` is set — eliminated the jarring black-iframe-with-play-button moment that YouTube embeds show during buffer.
-- **One video, five contexts.** Rather than source five separate videos, I used `start=` offsets to make a single asset feel like distinct moments per chapter.
-- **Onboarding friction.** The first iteration's intro→splash→deck flow totalled ~10 s. Tightening intro timer, fade transitions, splash CSS transitions, and auto-proceed delay brought this to ~6 s without losing cinematic intent.
-- **Demo-feel forms.** First iteration showed a generic *"✓ Request Received"* button flash and auto-closed the modal. Real enterprise inquiry forms stay open with a confirmation card — so I replaced the auto-close with a per-form contextual success state (Events / Sponsorship / Luxury / Leasing) that matches that expectation.
+Several things changed significantly from the initial version:
 
----
+**The intro sequence** started as a simple fade-in and was rebuilt into a staggered multi-element cinematic reveal with a Ken Burns background — the added complexity justified itself because the intro is the first impression and sets the tone for the entire presentation.
 
-## What Was Refined During Iteration
+**Form submission feedback** was initially generic ("Request Received"). This was replaced with a contextual success system that generates different confirmation copy for each of the four inquiry types, because a prospect booking a 5,000-person concert should see different language than one requesting a retail leasing brochure.
 
-The first version was visually correct but felt like a polished demo. Iteration replaced the demo tells one by one:
+**Navigation** was initially keyboard-and-dot only. Overlay arrow buttons and touch swipe support were added after considering the full range of presentation contexts (presenter with a clicker, salesperson sharing a tablet, remote viewer on mobile).
 
-- Footer was outside the scroll container — moved inside, snap now fires.
-- Inline `onclick` on the header CTA — converted to modular class-listener architecture.
-- Generic form success — replaced with per-context cards.
-- Splash showed for 2.5 s before auto-progressing — felt like a gate the user had to wait through; tightened to 1.2 s.
-- Two-card "Why" panel with a redundant *"65% high-earning professionals"* card — collapsed to two high-signal facts.
-- Dining slide had an inline stats-grid duplicating the eyebrow data — removed.
-- Sponsorship trigger was bound by `innerText` matching — replaced with a `btn-sponsorship-trigger` class.
-
-Each individual fix was small. Collectively they moved the project from *prototype* to *production-grade*.
+**The overlay architecture** started as a single events module and was expanded to four overlays with independent trigger classes, allowing multiple CTAs across different slides to open the appropriate module without any coupling between slides.
 
 ---
 
-## With More Time
+## What Would Be Added With More Time
 
-- **Self-hosted video via Cloudflare Stream.** Eliminates the YouTube dependency, guarantees autoplay across all browsers, gives frame-exact control of start times.
-- **Real CRM endpoint** — the forms are wired; only the `fetch()` call to Formspree or a HubSpot endpoint is missing.
-- **WebP/AVIF conversion** — the AI-generated PNGs are ~1 MB each. Converting to WebP would cut total image weight by 60–80 %.
-- **Full Sponsorship deep-dive module** with tiered partnership packages and audience-demographic data visualizations.
-- **Performing Arts / Exposition Center deep-dive** positioning American Dream's 300,000 sq. ft. event infrastructure against mid-scale traditional venues.
-- **Tablet-optimized breakpoint** between current desktop and mobile layouts.
+The two gaps that matter most commercially are a real form backend and analytics. Right now forms simulate submission — a lead captured in this deck goes nowhere. Wiring to Resend (transactional email) and a CRM would make the deck production-deployable for an actual sales team. Plausible analytics would show which sections drive the most engagement and which CTAs convert, closing the feedback loop between presentation design and pipeline outcomes.
 
----
+On the technical side, GSAP ScrollTrigger would unlock more choreographed reveal animations — the current CSS keyframe approach works well but limits what's possible in terms of scrubbing animations against scroll position. A headless CMS integration would remove the developer from the content update loop, which matters for a property where tenant rosters and availability change frequently.
 
-## Reflection
-
-The brief said *"We're not looking for perfection. We're looking for signal."*
-
-The signal I tried to send: I think like a product builder, not just a coder. Every decision — the font pairing, the animation timing, the order of sections, the CTA copy, the choice to *not* use a framework — was made in service of a business outcome.
-
-The goal was never a technically impressive website. It was a tool that makes someone pick up the phone.
-
----
-
-*Pratik Desai — May 2026*
-*Live: https://mall-screening-project.vercel.app*
-*Source: https://github.com/Pratikdesai4/Mall-Screening-Project*
+The architecture is deliberately built to accommodate these additions without restructuring — the module overlay system is already the expansion point for deeper content, and the trigger class naming convention (`btn-events-trigger`, `btn-leasing-trigger`) means new CTAs can be wired to existing overlays with a single class added in HTML.

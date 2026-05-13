@@ -4,11 +4,22 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    // initIntroSequence is on the critical path — skip/start buttons must respond immediately.
+    // Everything else deferred until the browser is idle so it doesn't block LCP/TBT.
     initIntroSequence();
-    initDeck();
-    initStatsCounter();
-    initModules();
-    initVideoFallback();
+
+    const deferredInit = () => {
+        initDeck();
+        initStatsCounter();
+        initModules();
+        initVideoFallback();
+    };
+
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(deferredInit, { timeout: 2000 });
+    } else {
+        setTimeout(deferredInit, 100);
+    }
 });
 
 // ============================================================

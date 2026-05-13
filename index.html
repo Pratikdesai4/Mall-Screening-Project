@@ -9,18 +9,28 @@
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
     <meta name="description"
         content="Explore the world's most ambitious retail and entertainment destination. A cinematic interactive sales experience for American Dream NJ.">
+    <!-- Only the origins genuinely on the critical path are preconnected.
+         YouTube is loaded after window.load via requestIdleCallback, so the
+         browser can establish its connection lazily without a hint. -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://www.youtube.com">
-    <link rel="dns-prefetch" href="https://i.ytimg.com">
 
-    <!-- LCP boost: prioritize the intro/hero background image (WebP, ~195KB vs PNG ~1MB) -->
+    <!-- LCP boost: preload AVIF for Chrome/Lighthouse; WebP as fallback for older browsers.
+         Browsers only download the preload whose type they support, so no double-fetch. -->
+    <link rel="preload" as="image" type="image/avif" href="./assets/hero_fallback.avif" fetchpriority="high">
     <link rel="preload" as="image" type="image/webp" href="./assets/hero_fallback.webp" fetchpriority="high">
 
-    <!-- Trimmed font request: only the weights actually used in style.css -->
-    <link
+    <!-- Async-load Google Fonts: media="print" → swap to "all" onload makes
+         this a non-render-blocking request. font-display: swap keeps text
+         readable during the swap. -->
+    <link rel="preload" as="style"
         href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Outfit:wght@300;400;500&display=swap"
-        rel="stylesheet">
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Outfit:wght@300;400;500&display=swap">
+    </noscript>
+
     <link rel="stylesheet" href="./style.css">
 </head>
 
@@ -129,8 +139,13 @@
             <!-- Hero Section -->
             <section id="hero" class="full-page hero-section">
                 <div class="background-media">
-                    <img src="./assets/hero_fallback.webp" alt="American Dream Hero Background Fallback"
-                        class="video-fallback" loading="eager" fetchpriority="high" decoding="async">
+                    <picture>
+                        <source type="image/avif" srcset="./assets/hero_fallback.avif">
+                        <source type="image/webp" srcset="./assets/hero_fallback.webp">
+                        <img src="./assets/hero_fallback.webp" alt="American Dream Hero Background Fallback"
+                            class="video-fallback" loading="eager" fetchpriority="high" decoding="async"
+                            width="1024" height="1024">
+                    </picture>
                     <iframe title="American Dream Hero Video"
                         data-src="https://www.youtube.com/embed/nlB8mRFGxjw?autoplay=1&mute=1&loop=1&controls=0&disablekb=1&fs=0&modestbranding=1&iv_load_policy=3&rel=0&showinfo=0&playlist=nlB8mRFGxjw&playsinline=1"
                         frameborder="0" allow="autoplay; encrypted-media" class="bg-video scroll-triggered-video" allowfullscreen></iframe>
@@ -177,7 +192,11 @@
                     <!-- New: Demographic Cards & Map -->
                     <div class="extra-data">
                         <div class="map-container">
-                            <img src="./assets/map.webp" alt="Catchment Map" class="catchment-map" loading="lazy" decoding="async">
+                            <picture>
+                                <source type="image/avif" srcset="./assets/map.avif">
+                                <source type="image/webp" srcset="./assets/map.webp">
+                                <img src="./assets/map.webp" alt="Catchment Map" class="catchment-map" loading="lazy" decoding="async">
+                            </picture>
                             <div class="map-overlay">
                                 <div class="pulse-point" style="top: 50%; left: 50%;"
                                     data-tooltip="East Rutherford: Core Hub"></div>
@@ -205,7 +224,11 @@
             <!-- Retail -->
             <section id="retail" class="full-page split-section">
                 <div class="image-side relative">
-                    <img src="./assets/retail_fallback.webp" alt="High-end Retail" loading="lazy" decoding="async">
+                    <picture>
+                        <source type="image/avif" srcset="./assets/retail_fallback.avif">
+                        <source type="image/webp" srcset="./assets/retail_fallback.webp">
+                        <img src="./assets/retail_fallback.webp" alt="High-end Retail" loading="lazy" decoding="async">
+                    </picture>
                     <div class="ai-badge">✨ AI Visual</div>
                 </div>
                 <div class="text-side">
@@ -230,7 +253,11 @@
             <!-- Luxury Retail -->
             <section id="luxury" class="full-page split-section reverse luxury-palette">
                 <div class="image-side">
-                    <img src="./assets/luxury.webp" alt="Luxury Retail" class="image-panel-fallback" loading="lazy" decoding="async">
+                    <picture>
+                        <source type="image/avif" srcset="./assets/luxury.avif">
+                        <source type="image/webp" srcset="./assets/luxury.webp">
+                        <img src="./assets/luxury.webp" alt="Luxury Retail" class="image-panel-fallback" loading="lazy" decoding="async">
+                    </picture>
                     <iframe
                         title="Luxury Lifestyle Video"
                         class="image-panel-video scroll-triggered-video"
@@ -263,8 +290,11 @@
             <!-- Entertainment -->
             <section id="entertainment" class="full-page interactive-section">
                 <div class="background-media">
-                    <img src="./assets/ent_fallback.webp" alt="Entertainment Background Fallback" class="video-fallback"
-                        loading="lazy" decoding="async">
+                    <picture>
+                        <source type="image/avif" srcset="./assets/ent_fallback.avif">
+                        <source type="image/webp" srcset="./assets/ent_fallback.webp">
+                        <img src="./assets/ent_fallback.webp" alt="Entertainment Background Fallback" class="video-fallback" loading="lazy" decoding="async">
+                    </picture>
                     <iframe title="American Dream Entertainment Video" class="bg-video scroll-triggered-video"
                         data-src="https://www.youtube.com/embed/G6fMtsWiZnQ?autoplay=1&mute=1&loop=1&controls=0&disablekb=1&fs=0&modestbranding=1&iv_load_policy=3&rel=0&showinfo=0&playlist=G6fMtsWiZnQ&playsinline=1"
                         frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -291,7 +321,11 @@
             <!-- Dining -->
             <section id="dining" class="full-page split-section reverse">
                 <div class="image-side">
-                    <img src="./assets/dining.webp" alt="Dining & Lifestyle" class="image-panel-fallback" loading="lazy" decoding="async">
+                    <picture>
+                        <source type="image/avif" srcset="./assets/dining.avif">
+                        <source type="image/webp" srcset="./assets/dining.webp">
+                        <img src="./assets/dining.webp" alt="Dining &amp; Lifestyle" class="image-panel-fallback" loading="lazy" decoding="async">
+                    </picture>
                     <iframe
                         title="Culinary Atmosphere Video"
                         class="image-panel-video scroll-triggered-video"
@@ -329,7 +363,11 @@
             <!-- Exposition Center -->
             <section id="expo" class="full-page split-section">
                 <div class="image-side relative">
-                    <img src="./assets/expo_fallback.webp" alt="Exposition Center" loading="lazy" decoding="async">
+                    <picture>
+                        <source type="image/avif" srcset="./assets/expo_fallback.avif">
+                        <source type="image/webp" srcset="./assets/expo_fallback.webp">
+                        <img src="./assets/expo_fallback.webp" alt="Exposition Center" loading="lazy" decoding="async">
+                    </picture>
                     <div class="ai-badge">✨ AI Visual</div>
                 </div>
                 <div class="text-side">
@@ -363,7 +401,11 @@
             <!-- Events & Platform -->
             <section id="events" class="full-page call-to-action">
                 <div class="background-media">
-                    <img src="./assets/ent_fallback.webp" alt="Platform Background" class="video-fallback" loading="lazy" decoding="async">
+                    <picture>
+                        <source type="image/avif" srcset="./assets/ent_fallback.avif">
+                        <source type="image/webp" srcset="./assets/ent_fallback.webp">
+                        <img src="./assets/ent_fallback.webp" alt="Platform Background" class="video-fallback" loading="lazy" decoding="async">
+                    </picture>
                     <iframe
                         title="Platform Events Video"
                         class="bg-video scroll-triggered-video"
@@ -444,14 +486,22 @@
                             <h3>Venue Highlights</h3>
                             <div class="highlight-gallery">
                                 <div class="highlight-item">
-                                    <img src="./assets/event_concert.webp" alt="Concert Highlight" loading="lazy" decoding="async">
+                                    <picture>
+                                        <source type="image/avif" srcset="./assets/event_concert.avif">
+                                        <source type="image/webp" srcset="./assets/event_concert.webp">
+                                        <img src="./assets/event_concert.webp" alt="Concert Highlight" loading="lazy" decoding="async">
+                                    </picture>
                                     <div class="highlight-info">
                                         <h4>Main Stage</h4>
                                         <p>Global artists and massive crowds.</p>
                                     </div>
                                 </div>
                                 <div class="highlight-item">
-                                    <img src="./assets/event_activation.webp" alt="Brand Activation" loading="lazy" decoding="async">
+                                    <picture>
+                                        <source type="image/avif" srcset="./assets/event_activation.avif">
+                                        <source type="image/webp" srcset="./assets/event_activation.webp">
+                                        <img src="./assets/event_activation.webp" alt="Brand Activation" loading="lazy" decoding="async">
+                                    </picture>
                                     <div class="highlight-info">
                                         <h4>Pop-up Pavilions</h4>
                                         <p>Bespoke experiential marketing.</p>
