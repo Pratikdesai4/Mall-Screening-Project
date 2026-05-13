@@ -20,27 +20,25 @@ function initIntroSequence() {
     const appContainer = document.getElementById('app');
 
     if (startBtn) {
-        startBtn.onclick = () => {
+        startBtn.addEventListener('click', () => {
             if (!splashScreen) return;
-            
-            // Premium fade out transition
+
             splashScreen.classList.add('fade-out');
-            
+
             setTimeout(() => {
                 splashScreen.style.display = 'none';
-                
+
                 if (appContainer) {
                     appContainer.classList.remove('presentation-hidden');
                     appContainer.classList.add('presentation-reveal');
                 }
-                
-                // Small delay to ensure the deck initializes visibility correctly
+
                 setTimeout(() => {
                     const firstSlide = document.querySelector('.full-page');
                     if (firstSlide) firstSlide.classList.add('visible');
                 }, 100);
-            }, 1000);
-        };
+            }, 600);
+        });
     }
 }
 
@@ -248,6 +246,9 @@ function initDeck() {
                 const iframe = entry.target;
                 if (!iframe.getAttribute('src') && iframe.getAttribute('data-src')) {
                     iframe.setAttribute('src', iframe.getAttribute('data-src'));
+                    // Reveal iframe only after autoplay has had time to start —
+                    // prevents YouTube's pre-play thumbnail + play button from showing
+                    setTimeout(() => iframe.classList.add('video-ready'), 3000);
                 }
             }
         });
@@ -322,6 +323,7 @@ function initModules() {
     const eventsOverlay = document.getElementById('events-module');
     const sponsorshipOverlay = document.getElementById('sponsorship-module');
     const leasingOverlay = document.getElementById('leasing-module');
+    const luxuryLeasingOverlay = document.getElementById('luxury-leasing-module');
 
     const openModule = (overlay) => {
         if (!overlay) return;
@@ -342,16 +344,16 @@ function initModules() {
     document.querySelectorAll('.btn-leasing-trigger').forEach(btn =>
         btn.addEventListener('click', () => openModule(leasingOverlay))
     );
+    document.querySelectorAll('.btn-luxury-leasing-trigger').forEach(btn =>
+        btn.addEventListener('click', () => openModule(luxuryLeasingOverlay))
+    );
 
     // Top INQUIRE NOW button → events module
     document.querySelector('.cta-top')?.addEventListener('click', () => openModule(eventsOverlay));
 
-    // Sponsorship Deck button
-    document.querySelectorAll('.btn-secondary').forEach(btn => {
-        if (btn.innerText.toLowerCase().includes('sponsorship')) {
-            btn.addEventListener('click', () => openModule(sponsorshipOverlay));
-        }
-    });
+    document.querySelectorAll('.btn-sponsorship-trigger').forEach(btn =>
+        btn.addEventListener('click', () => openModule(sponsorshipOverlay))
+    );
 
     // Close buttons
     document.querySelectorAll('.close-module').forEach(btn => {
@@ -373,30 +375,39 @@ function initModules() {
     });
 
     // Form submissions
+    const formSuccessMessages = {
+        events:      { heading: 'Inquiry Submitted',         body: 'Our experience team will be in touch within 24 hours to discuss your vision.' },
+        sponsorship: { heading: 'Media Kit Requested',       body: 'Our partnerships team will follow up with full demographic and pricing details shortly.' },
+        luxury:      { heading: 'Consultation Requested',    body: 'A member of our flagship leasing team will reach out to you personally.' },
+        leasing:     { heading: 'Leasing Inquiry Confirmed', body: 'An advisor will contact you within one business day with available opportunities.' },
+    };
+
+    const getFormContext = (form) => {
+        if (form.classList.contains('sponsorship-form')) return 'sponsorship';
+        if (form.classList.contains('leasing-form')) return 'leasing';
+        if (form.closest('#luxury-leasing-module')) return 'luxury';
+        return 'events';
+    };
+
     document.querySelectorAll('.lead-form').forEach(form => {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
             const submitBtn = form.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerText;
-
             submitBtn.disabled = true;
             submitBtn.innerText = 'Sending...';
 
             setTimeout(() => {
-                submitBtn.innerText = '✓ Request Received';
-                submitBtn.style.background = '#10B981';
-                submitBtn.style.borderColor = '#10B981';
-                submitBtn.style.color = 'white';
-
-                setTimeout(() => {
-                    submitBtn.innerText = originalText;
-                    submitBtn.style.background = '';
-                    submitBtn.style.borderColor = '';
-                    submitBtn.style.color = '';
-                    submitBtn.disabled = false;
-                    form.reset();
-                    closeModule(form.closest('.module-overlay'));
-                }, 2200);
+                const ctx = getFormContext(form);
+                const msg = formSuccessMessages[ctx];
+                const card = form.closest('.booking-card');
+                if (card) {
+                    card.innerHTML = `
+                        <div class="form-success">
+                            <div class="form-success-icon">&#10003;</div>
+                            <h3>${msg.heading}</h3>
+                            <p>${msg.body}</p>
+                        </div>`;
+                }
             }, 900);
         });
     });

@@ -21,9 +21,16 @@
 <body class="dark-theme">
     <!-- Premium Intro Sequence -->
     <div id="intro-overlay" class="intro-overlay">
+        <!-- Cinematic background: Ken Burns zoom on hero image -->
+        <div class="intro-bg"></div>
+        <!-- Multi-layer gradient: dark top/bottom, open centre for logo -->
+        <div class="intro-vignette"></div>
+
         <div class="intro-logo-reveal">
+            <span class="intro-eyebrow">East Rutherford &middot; New Jersey</span>
             <h2 class="reveal-text">AMERICAN DREAM</h2>
             <div class="reveal-bar"></div>
+            <p class="intro-tagline">The World's Greatest Retail &amp; Entertainment Destination</p>
         </div>
         <button id="skip-intro" class="skip-btn">SKIP TO DECK</button>
     </div>
@@ -39,14 +46,21 @@
                 setTimeout(() => {
                     intro.style.display = 'none';
                     const splash = document.getElementById('splash-screen');
-                    if (splash) splash.classList.add('visible');
-                }, 600);
+                    if (splash) {
+                        splash.classList.add('visible');
+                        // Auto-proceed after brief pause — splash is a gate, not a destination
+                        setTimeout(() => {
+                            const startBtn = document.getElementById('start-presentation');
+                            if (startBtn) startBtn.click();
+                        }, 1200);
+                    }
+                }, 400);
             };
 
-            // Professional delay for logo reveal
-            const timer = setTimeout(clearIntro, 4000);
+            // Cinematic intro runs 3.5s — enough for all staggered elements to land
+            const timer = setTimeout(clearIntro, 3500);
 
-            if (skip) skip.onclick = clearIntro;
+            if (skip) skip.addEventListener('click', clearIntro);
         })();
     </script>
 
@@ -75,8 +89,7 @@
         <header class="top-header">
             <div class="brand-logo">AMERICAN DREAM <span id="header-chapter">The Global Destination</span></div>
             <div class="header-right">
-                <button class="btn btn-outline btn-sm cta-top"
-                    onclick="document.getElementById('events-module').classList.add('active'); document.body.style.overflow='hidden';">INQUIRE NOW</button>
+                <button class="btn btn-outline btn-sm cta-top">INQUIRE NOW</button>
             </div>
         </header>
 
@@ -103,8 +116,7 @@
         <div id="section-transition" class="section-transition"></div>
         <div id="slide-progress" class="slide-progress"></div>
         <div id="slide-counter" class="slide-counter"><span id="slide-chapter-name">Introduction</span><span><span class="current">01</span> / 09</span></div>
-        <div id="keyboard-hint" class="keyboard-hint"><span class="key-icon">↑</span><span class="key-icon">↓</span>
-            Navigate Slides</div>
+        <div id="keyboard-hint" class="keyboard-hint"><span class="key-icon">↑</span><span class="key-icon">↓</span> Navigate &nbsp;&middot;&nbsp; <span class="key-icon">1–9</span> Jump to Chapter</div>
 
         <!-- Main Content -->
         <main class="content-container">
@@ -114,8 +126,8 @@
                     <img src="./assets/hero_fallback.png" alt="American Dream Hero Background Fallback"
                         class="video-fallback" loading="eager">
                     <iframe title="American Dream Hero Video"
-                        src="https://www.youtube.com/embed/nlB8mRFGxjw?autoplay=1&mute=1&loop=1&controls=0&disablekb=1&fs=0&modestbranding=1&iv_load_policy=3&rel=0&playlist=nlB8mRFGxjw&playsinline=1"
-                        frameborder="0" allow="autoplay; encrypted-media" class="bg-video" allowfullscreen></iframe>
+                        data-src="https://www.youtube.com/embed/nlB8mRFGxjw?autoplay=1&mute=1&loop=1&controls=0&disablekb=1&fs=0&modestbranding=1&iv_load_policy=3&rel=0&showinfo=0&playlist=nlB8mRFGxjw&playsinline=1"
+                        frameborder="0" allow="autoplay; encrypted-media" class="bg-video scroll-triggered-video" allowfullscreen></iframe>
                     <div class="overlay"></div>
                 </div>
                 <div class="hero-content">
@@ -176,10 +188,6 @@
                                 <p>Avg. Household Income in Primary Catchment</p>
                             </div>
                             <div class="demo-card">
-                                <h3>65%</h3>
-                                <p>High-Earning Professionals</p>
-                            </div>
-                            <div class="demo-card">
                                 <h3>18-44</h3>
                                 <p>Core Affluent Demographic Age Range</p>
                             </div>
@@ -216,7 +224,14 @@
             <!-- Luxury Retail -->
             <section id="luxury" class="full-page split-section reverse luxury-palette">
                 <div class="image-side">
-                    <img src="./assets/luxury.png" alt="Luxury Retail" loading="lazy">
+                    <img src="./assets/luxury.png" alt="Luxury Retail" class="image-panel-fallback" loading="lazy">
+                    <iframe
+                        title="Luxury Lifestyle Video"
+                        class="image-panel-video scroll-triggered-video"
+                        data-src="https://www.youtube.com/embed/nlB8mRFGxjw?autoplay=1&mute=1&loop=1&controls=0&disablekb=1&fs=0&modestbranding=1&iv_load_policy=3&rel=0&showinfo=0&playlist=nlB8mRFGxjw&playsinline=1&start=55"
+                        frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="image-panel-overlay"></div>
+                    <div class="ai-badge">✨ AI Visual</div>
                 </div>
                 <div class="text-side">
                     <span class="slide-eyebrow">Luxury · The Avenue</span>
@@ -235,7 +250,7 @@
                         <div class="logo-item">TIFFANY & CO.</div>
                     </div>
 
-                    <button class="btn btn-outline btn-leasing-trigger">Leasing Inquiries</button>
+                    <button class="btn btn-outline btn-luxury-leasing-trigger">Flagship Inquiry</button>
                 </div>
             </section>
 
@@ -245,10 +260,11 @@
                     <img src="./assets/ent_fallback.png" alt="Entertainment Background Fallback" class="video-fallback"
                         loading="lazy">
                     <iframe title="American Dream Entertainment Video" class="bg-video scroll-triggered-video"
-                        data-src="https://www.youtube.com/embed/G6fMtsWiZnQ?autoplay=1&mute=1&loop=1&controls=0&disablekb=1&fs=0&modestbranding=1&iv_load_policy=3&rel=0&playlist=G6fMtsWiZnQ&playsinline=1"
+                        data-src="https://www.youtube.com/embed/G6fMtsWiZnQ?autoplay=1&mute=1&loop=1&controls=0&disablekb=1&fs=0&modestbranding=1&iv_load_policy=3&rel=0&showinfo=0&playlist=G6fMtsWiZnQ&playsinline=1"
                         frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                     <div class="overlay dark"></div>
                 </div>
+                <div class="ai-badge">✨ AI Visual</div>
                 <div class="content-wrapper central">
                     <span class="slide-eyebrow">Entertainment · 4 World-Class Venues</span>
                     <span class="slide-rule"></span>
@@ -261,13 +277,22 @@
                         <span>Big SNOW</span>
                         <span>The Rink</span>
                     </div>
+                    <br><br>
+                    <button class="btn btn-outline btn-events-trigger">Book a Private Event</button>
                 </div>
             </section>
 
             <!-- Dining -->
             <section id="dining" class="full-page split-section reverse">
                 <div class="image-side">
-                    <img src="./assets/dining.png" alt="Dining & Lifestyle" loading="lazy">
+                    <img src="./assets/dining.png" alt="Dining & Lifestyle" class="image-panel-fallback" loading="lazy">
+                    <iframe
+                        title="Culinary Atmosphere Video"
+                        class="image-panel-video scroll-triggered-video"
+                        data-src="https://www.youtube.com/embed/G6fMtsWiZnQ?autoplay=1&mute=1&loop=1&controls=0&disablekb=1&fs=0&modestbranding=1&iv_load_policy=3&rel=0&showinfo=0&playlist=G6fMtsWiZnQ&playsinline=1&start=42"
+                        frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="image-panel-overlay"></div>
+                    <div class="ai-badge">✨ AI Visual</div>
                 </div>
                 <div class="text-side">
                     <span class="slide-eyebrow">Dining · 100+ Culinary Concepts</span>
@@ -289,18 +314,6 @@
                         <span>Carpaccio</span>
                         <span>Yard House</span>
                         <span>Wetzel's Pretzels</span>
-                    </div>
-
-                    <div class="stats-grid"
-                        style="margin-top: 2rem; margin-bottom: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                        <div class="stat-card" style="padding: 1rem;">
-                            <h3 style="color: var(--accent-gold);">100+</h3>
-                            <p style="font-size:0.8rem;">Culinary Concepts</p>
-                        </div>
-                        <div class="stat-card" style="padding: 1rem;">
-                            <h3 style="color: var(--accent-gold);">30%</h3>
-                            <p style="font-size:0.8rem;">Traffic Increase Post-5PM</p>
-                        </div>
                     </div>
 
                     <button class="btn btn-outline btn-leasing-trigger">Partner With Us</button>
@@ -343,6 +356,15 @@
 
             <!-- Events & Platform -->
             <section id="events" class="full-page call-to-action">
+                <div class="background-media">
+                    <img src="./assets/ent_fallback.png" alt="Platform Background" class="video-fallback" loading="lazy">
+                    <iframe
+                        title="Platform Events Video"
+                        class="bg-video scroll-triggered-video"
+                        data-src="https://www.youtube.com/embed/nlB8mRFGxjw?autoplay=1&mute=1&loop=1&controls=0&disablekb=1&fs=0&modestbranding=1&iv_load_policy=3&rel=0&showinfo=0&playlist=nlB8mRFGxjw&playsinline=1&start=30"
+                        frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="overlay platform-overlay"></div>
+                </div>
                 <div class="content-wrapper text-center">
                     <span class="slide-eyebrow">Platform · Sponsorship &amp; Activation</span>
                     <span class="slide-rule"></span>
@@ -366,13 +388,13 @@
                         </div>
                     </div>
 
+                    <p class="closing-statement">Join 500+ brands. Be part of the world's greatest destination.</p>
                     <div class="final-ctas">
-                        <button class="btn btn-primary lg">Book a Venue</button>
-                        <button class="btn btn-secondary lg">Sponsorship Deck</button>
+                        <button class="btn btn-primary lg btn-events-trigger">Book a Venue</button>
+                        <button class="btn btn-secondary lg btn-sponsorship-trigger">Sponsorship Deck</button>
                     </div>
                 </div>
             </section>
-        </main>
 
         <footer class="comprehensive-footer">
             <div class="footer-grid">
@@ -388,9 +410,9 @@
                 <div class="footer-col">
                     <h4>CONNECT</h4>
                     <div class="social-links">
-                        <a href="#">Instagram</a>
-                        <a href="#">LinkedIn</a>
-                        <a href="#">X (Twitter)</a>
+                        <a href="https://www.instagram.com/americandreamnj" target="_blank" rel="noopener noreferrer">Instagram</a>
+                        <a href="https://www.linkedin.com/company/american-dream-nj" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        <a href="https://twitter.com/americandreamnj" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
                     </div>
                 </div>
             </div>
@@ -399,6 +421,7 @@
                         Ordinary.</span></p>
             </div>
         </footer>
+        </main>
 
         <!-- Phase 2: Expandable Events Module Overlay -->
         <div id="events-module" class="module-overlay">
@@ -530,6 +553,68 @@
                                 <textarea placeholder="Tell us about your brand goals..."
                                     aria-label="Brand Goals"></textarea>
                                 <button type="submit" class="btn btn-primary full-width">Download Kit</button>
+                            </form>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+        <!-- Phase 2: Luxury Flagship Leasing Module -->
+        <div id="luxury-leasing-module" class="module-overlay">
+            <div class="module-panel">
+                <button class="close-module" aria-label="Close Module">&times;</button>
+                <div class="module-header">
+                    <span class="eyebrow">By Invitation &middot; The Avenue</span>
+                    <h2>FLAGSHIP &amp; LUXURY LEASING</h2>
+                </div>
+
+                <div class="module-grid">
+                    <div class="module-main">
+                        <section class="module-inner-section">
+                            <h3>The Avenue — Prestige Positions</h3>
+                            <div class="specs-grid">
+                                <div class="spec-tile">
+                                    <span class="spec-label">Flagship Format</span>
+                                    <span class="spec-value">10,000 – 30,000 Sq. Ft.</span>
+                                </div>
+                                <div class="spec-tile">
+                                    <span class="spec-label">Exclusivity</span>
+                                    <span class="spec-value">Category-Protected</span>
+                                </div>
+                                <div class="spec-tile">
+                                    <span class="spec-label">Annual Clientele</span>
+                                    <span class="spec-value">40M+ Visitors</span>
+                                </div>
+                                <div class="spec-tile">
+                                    <span class="spec-label">Neighbours</span>
+                                    <span class="spec-value">Hermès · Gucci · Rolex</span>
+                                </div>
+                            </div>
+                            <p class="section-body" style="margin-top: 2rem;">The Avenue offers a singular stage for
+                                the world's most coveted luxury houses. Category exclusivity, concierge-led client
+                                services, and an ultra-high-net-worth visitor profile distinguish every flagship
+                                position. This is not retail — it is destination.</p>
+                        </section>
+                    </div>
+
+                    <aside class="module-sidebar">
+                        <div class="booking-card">
+                            <h3>Request a Consultation</h3>
+                            <p>Our luxury partnership team will craft a bespoke positioning proposal for your house.</p>
+                            <form class="lead-form">
+                                <input type="text" placeholder="Full Name" aria-label="Full Name" required>
+                                <input type="email" placeholder="Corporate Email" aria-label="Corporate Email" required>
+                                <select aria-label="Brand Category">
+                                    <option>Brand Category</option>
+                                    <option>Haute Couture &amp; Ready-to-Wear</option>
+                                    <option>Fine Jewellery &amp; Watches</option>
+                                    <option>Premium Leather Goods</option>
+                                    <option>Art, Collectibles &amp; Design</option>
+                                    <option>Private Members Club</option>
+                                </select>
+                                <textarea placeholder="Tell us about your brand vision..."
+                                    aria-label="Brand Vision"></textarea>
+                                <button type="submit" class="btn btn-primary full-width">Begin Partnership Dialogue</button>
                             </form>
                         </div>
                     </aside>

@@ -23,7 +23,7 @@ The experience is designed to make someone feel *"I need to be here"* within the
 | Animations | CSS Keyframes, Intersection Observer API, requestAnimationFrame |
 | Video | YouTube IFrame API with poster fallbacks |
 | Maps | Static asset with CSS overlay annotations |
-| Fonts | Google Fonts — Cinzel (luxury display), Inter (body) |
+| Fonts | Google Fonts — Cinzel (luxury display), Outfit (body) |
 | Icons | Custom SVG + Unicode symbols |
 | Build | No bundler — zero dependencies, instant load |
 | Deployment | Vercel (auto-deploy from GitHub main) |
@@ -121,7 +121,7 @@ That's it. No `npm install`, no environment variables, no build process.
 Performance. No framework overhead means instant first paint, no hydration delay, and a 90+ Lighthouse score without optimization gymnastics. For a sales deck where first impressions are everything, raw speed matters.
 
 **Why Cinzel font?**
-Cinzel is rooted in classical Roman inscription letterforms — it carries authority, permanence, and luxury without feeling dated. It's used by high-end fashion and hospitality brands globally. Paired with Inter for body copy, it creates the exact tension between grandeur and clarity the brief asked for.
+Cinzel is rooted in classical Roman inscription letterforms — it carries authority, permanence, and luxury without feeling dated. It's used by high-end fashion and hospitality brands globally. Paired with Outfit for body copy, it creates the exact tension between grandeur and clarity the brief asked for.
 
 **Why a modal for the Events sub-module?**
 The brief referenced DigiDeck's structure — sub-modules that deepen engagement without breaking the primary narrative flow. A slide-in modal keeps the viewer in context while giving sales reps a dedicated deep-dive section to present when the prospect asks "tell me more about events."
@@ -174,7 +174,7 @@ Targeting 90+ Lighthouse score across all categories:
 - Build a Leasing Paths sub-module segmented by category (luxury flagship, mid-tier retail, F&B, pop-up)
 - Implement a Performing Arts / Exposition Center dedicated section
 - Add scroll-progress indicator for the non-linear nav
-- Integrate a real CRM form endpoint (HubSpot or Formspree) for the inquiry forms
+- Integrate a real CRM form endpoint — forms are fully wired in JS; connecting Formspree requires replacing `e.preventDefault()` with a `fetch('https://formspree.io/f/YOUR_ID', { method:'POST', body: new FormData(form) })` call and pointing each `<form>` to the relevant endpoint. The animated success state is already in place.
 - Add tablet-optimized layout breakpoints
 
 ---
